@@ -18,17 +18,18 @@ var config = {
       template: 'app/index.tpl.html',
       inject: 'body',
       filename: 'index.html'
-    }),
-    new S3Plugin({
-      s3Options: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        region: 'us-west-1'
-      },
-      s3UploadOptions: {
-        Bucket: 'snapflixapp.com'
-      }
     })
+    // ,
+    // new S3Plugin({
+    //   s3Options: {
+    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //     region: 'us-west-1'
+    //   },
+    //   s3UploadOptions: {
+    //     Bucket: 'snapflixapp.com'
+    //   }
+    // })
   ],
   module: {
     loaders: [
