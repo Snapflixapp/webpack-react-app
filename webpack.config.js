@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
+
 require('dotenv').config()
 const webpack = require('webpack')
-const S3Plugin = require('webpack-s3-plugin')
 const {join} = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {getIfUtils, removeEmpty} = require('webpack-config-utils')  // https://www.npmjs.com/package/webpack-config-utils
@@ -35,17 +36,7 @@ module.exports = (env) => {
         template: join(APP_DIR, 'index.tpl.html'),
         inject: 'body',
         filename: join(BUILD_DIR, 'index.html')
-      }),
-      ifProd(new S3Plugin({
-        s3Options: {
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-          region: 'us-west-1'
-        },
-        s3UploadOptions: {
-          Bucket: 'snapflixapp.com'
-        }
-      }))
+      })
     ]),
     resolve: {
       extensions: ['.js', '.jsx']
