@@ -1,5 +1,10 @@
+/* eslint-disable no-unused-vars */
+
 const { resolve } = require('path')
 const webpack = require('webpack')
+
+// https://www.npmjs.com/package/dotenv
+require('dotenv').config()
 
 // https://github.com/jantimon/html-webpack-plugin
 const HtmlWebpackPlugin = require('html-webpack-plugin')
