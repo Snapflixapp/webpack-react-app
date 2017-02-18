@@ -1,42 +1,90 @@
 /* eslint-disable no-unused-vars */
 
-require('babel-register')
-// require('dotenv').config() // https://www.npmjs.com/package/dotenv
+const { resolve } = require('path')
 const webpack = require('webpack')
-const {join} = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {getIfUtils, removeEmpty} = require('webpack-config-utils')  // https://www.npmjs.com/package/webpack-config-utils
 
-const APP_DIR = join(__dirname, '/src/')
-const BUILD_DIR = join(__dirname, '/dist/')
+// https://www.npmjs.com/package/dotenv
+require('dotenv').config()
+
+// https://github.com/jantimon/html-webpack-plugin
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+// https://www.npmjs.com/package/webpack-config-utils
+const {getIfUtils, removeEmpty} = require('webpack-config-utils')
 
 module.exports = (env) => {
   const {ifProd} = getIfUtils(env)
   const config = {
-    entry: join(APP_DIR, 'index.jsx'),
+    entry: [
+      // activate HMR for React
+      'react-hot-loader/patch',
+
+      // bundle the client for webpack-dev-server
+      // and connect to the provided endpoint
+      'webpack-dev-server/client?http://localhost:8080',
+
+      // bundle the client for hot reloading
+      // only- means to only hot reload for successful updates
+      'webpack/hot/only-dev-server',
+
+      // the entry point of our app
+      resolve(__dirname, 'src', 'index.jsx')
+    ],
     output: {
-      path: BUILD_DIR,
-      filename: 'bundle.js'
+      // the output bundle
+      filename: 'bundle.js',
+
+      path: resolve(__dirname, 'dist'),
+
+      // necessary for HMR to know where to load the hot update chunks
+      publicPath: '/'
     },
+
+    context: resolve(__dirname, 'src'),
+
     devtool: ifProd('source-map', 'eval'),
+
+    devServer: {
+      // enable HMR on the server
+      hot: true,
+
+      // match the output path
+      contentBase: resolve(__dirname, 'dist'),
+
+      // match the output `publicPath`
+      publicPath: '/',
+
+      historyApiFallback: {
+        index: 'index.html'
+      }
+    },
+
     module: {
-      loaders: [
+      rules: [
         {
-          test: /\.jsx?$/,
-          loaders: ['babel-loader'],
+          test: /\.jsx$/,
+          loaders: [
+            'babel-loader'
+          ],
           exclude: /node_modules/
         },
         {
           test: /\.css$/,
-          loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+          include: resolve(__dirname, 'src'),
+          loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]&camelCase!postcss-loader'
         }
       ]
     },
     plugins: removeEmpty([
+      // enable HMR globally
+      new webpack.HotModuleReplacementPlugin(),
+
+      // prints more readable module names in the browser console on HMR updates
+      new webpack.NamedModulesPlugin(),
+
       new HtmlWebpackPlugin({
-        template: join(APP_DIR, 'index.tpl.html'),
-        inject: 'body',
-        filename: join(BUILD_DIR, 'index.html')
+        template: resolve(__dirname, 'src', 'index.tpl.html'),
+        inject: 'body'
       })
     ]),
     resolve: {
