@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 require('babel-register')
+// require('dotenv').config() // https://www.npmjs.com/package/dotenv
 const webpack = require('webpack')
 const {join} = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')

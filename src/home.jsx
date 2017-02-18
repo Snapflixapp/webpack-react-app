@@ -3,7 +3,7 @@
 class Home extends React.Component {
   render () {
     return (
-      <h1>Hello, AutoDeploy from CircleCI!</h1>
+      <h1>Hello, from the room!</h1>
     )
   }
 }
