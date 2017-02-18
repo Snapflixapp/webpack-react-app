@@ -142,11 +142,7 @@ module.exports = (env) => {
       }))
     ]),
     resolve: {
-      extensions: ['.js', '.jsx'],
-      modules: [
-        APP_DIR,
-        resolve(__dirname, 'node_modules')
-      ]
+      extensions: ['.js', '.jsx']
     }
   }
 
