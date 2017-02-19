@@ -2,7 +2,11 @@ dependencies:
   post:
     - npm run deploy
 deployment:
-  prod:
+  staging:
     branch: master
+    commands:
+      - aws s3 sync dist s3://staging.snapflixapp.com --delete
+  production:
+    branch: production
     commands:
       - aws s3 sync dist s3://snapflixapp.com --delete
