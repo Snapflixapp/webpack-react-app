@@ -1,13 +1,13 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
-import Root from './root'
-import Nav from './nav'
-import Main from './main'
-import Home from './home'
-import Signin from './signin'
-import Upload from './upload'
-import NoMatch from './NoMatch'
+import Root from '../components/Root'
+import Nav from '../components/Nav'
+import Main from '../components/Main'
+import Home from '../components/Home'
+import Signin from '../components/Signin'
+import Upload from '../components/Upload'
+import NoMatch from '../components/NoMatch'
 
 const App = () => (
   <Router>
