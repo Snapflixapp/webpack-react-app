@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './root.css'
+import styles from './Root.css'
 
 const Root = (props) => (
   <div className={styles.root} {...props} />
