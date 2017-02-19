@@ -5,11 +5,13 @@ import styles from './Nav.css'
 
 const Nav = () => (
   <div className={styles.nav}>
-    <ul>
-      <li><Link to='/'>Home</Link></li>
-      <li><Link to='/signin'>Signin</Link></li>
-      <li><Link to='/upload'>Upload</Link></li>
-    </ul>
+    <div className={styles.container}>
+      <h1 className={styles.title}><Link to='/'>SnapFlix</Link></h1>
+      <ul>
+        <li><Link to='/signin'>Sign in</Link></li>
+        <li><Link to='/upload'>Upload</Link></li>
+      </ul>
+    </div>
   </div>
 )
 
