@@ -40,8 +40,8 @@ class Signin extends React.Component {
 
   createListItem () {
     return this.props.usersData.map((user) => {
-      return(
-        <li key={user.id} onClick={() => {this.props.selectUser(user)}} >{user.name} {user.description}</li>
+      return (
+        <li key={user.id} onClick={() => { this.props.selectUser(user) }} >{user.name} {user.description}</li>
       )
     })
   }
@@ -50,13 +50,13 @@ class Signin extends React.Component {
     return (
       <div className='container'>
       Signin
-        <input type='text' onChange={this.handleNameText} /><br/>
+        <input type='text' onChange={this.handleNameText} /><br />
         <input type='text' onChange={this.handlePasswordText} />
         <button type='submit' onClick={this.handleSubmit} >Sign in</button>
-          <ul>
+        <ul>
           {this.createListItem()}
-          </ul>
-          <p>{this.props.user.description} {this.props.user.age}</p>
+        </ul>
+        <p>{this.props.user.description} {this.props.user.age}</p>
       </div>
     )
   }
