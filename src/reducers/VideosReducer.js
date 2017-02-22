@@ -8,13 +8,16 @@ export default function reducer (state = {
 }, action) {
   switch (action.type) {
     case 'FETCH_VIDEOS': {
-      return {...state, fetching: true}
+      return Object.assign({}, state, {fetching: true
+      })
     }
     case 'FETCH_VIDEOS_REJECTED': {
-      return {...state, fetching: false, error: action.payload}
+      return Object.assign({}, state, {fetching: false, error: action.payload
+      })
     }
     case 'FETCH_VIDEOS_FULFILLED': {
-      return {...state, fetching: false, fetched: true, videos: action.payload}
+      return Object.assign({}, state, {fetching: false, fetched: true, videos: action.payload
+      })
     }
   }
   return state

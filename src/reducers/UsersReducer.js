@@ -1,20 +1,24 @@
 'use strict'
 
 export default function reducer (state = {
-  users: [],
+  users: ['user1', 'user2'],
   fetching: false,
   fetched: false,
   error: null
 }, action) {
   switch (action.type) {
     case 'FETCH_USERS': {
-      return {...state, fetching: true}
+      return Object.assign({}, state, {fetching: true
+      })
     }
     case 'FETCH_USERS_REJECTED': {
-      return {...state, fetching: false, error: action.payload}
+      return Object.assign({}, state, { fetching: false, error: action.payload
+      })
     }
     case 'FETCH_USERS_FULFILLED': {
-      return {...state, fetching: false, fetched: true, users: action.payload}
+      return Object.assign({}, state, {
+        fetching: false, fetched: true, users: action.payload
+      })
     }
   }
   return state
