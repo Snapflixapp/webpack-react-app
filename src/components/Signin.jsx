@@ -1,6 +1,7 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { fetchUser } from '../actions/UsersAction'
+import { selectUser } from '../actions/UserAction'
 
 class Signin extends React.Component {
   constructor (props) {
@@ -12,6 +13,7 @@ class Signin extends React.Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.createListItem = this.createListItem.bind(this)
   }
 
   handleSubmit (event) {
@@ -19,21 +21,41 @@ class Signin extends React.Component {
     console.log('CLICKED')
   }
 
+  createListItem () {
+    return this.props.usersData.map((user) => {
+      return(
+        <li key={user.id} onClick={() => {this.props.selectUser(user)}} >{user.name} {user.description}</li>
+      )
+    })
+  }
+
   render () {
-    console.log(this.props)
     return (
       <div className='container'>
       Signin
+      <input type='text' /><br/>
+      <input type='text' />
       <button type='submit' onClick={this.handleSubmit} >Sign in</button>
-      <p>{}</p>
+      <ul>
+      {this.createListItem()}
+      </ul>
+      <p>{this.props.user.description} {this.props.user.age}</p>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
+function mapStateToProps (state) {
   return {
-    users: state.users
+    usersData: state.usersData,
+    user: state.user
   }
 }
-export default Signin
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({
+    selectUser: selectUser
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signin)

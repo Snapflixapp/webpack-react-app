@@ -1,7 +1,7 @@
 'use strict'
 
 export default function reducer (state = {
-  users: ['user1', 'user2'],
+  users: [],
   fetching: false,
   fetched: false,
   error: null

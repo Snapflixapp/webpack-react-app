@@ -1,14 +1,24 @@
 'use strict'
 
-import axios from 'axios'
-import {store} from '../store'
-
-export function fetchUser () {
-  store.dispatch({
-    type: 'FETCH_USER',
-    payload: axios.get('http://rest.learncode.academy/api/wstern/users')
-  })
+// action creater
+export const selectUser = (user) => {
+  console.log('clicked on user: ', user.name)
+  // return an action
+  return {
+    type: 'USER_SELECTED',
+    payload: user
+  }
 }
+
+// import axios from 'axios'
+// import {store} from '../store'
+
+// export function fetchUser () {
+//   store.dispatch({
+//     type: 'FETCH_USER',
+//     payload: axios.get('http://rest.learncode.academy/api/wstern/users')
+//   })
+// }
 
 // store.dispatch(
 //   //dispatch an event here

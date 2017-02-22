@@ -18,13 +18,13 @@ import thunk from 'redux-thunk'
 import promise from 'redux-promise-middleware'
 // logger will track the axio request
 import logger from 'redux-logger'
-import reducers from '../reducers'
+import allReducers from '../reducers'
 
 // middleware bundler
 const middleware = applyMiddleware(promise(), logger(), thunk)
 
 // create store and pass in combined reducers and all middle wares
-const store = createStore(reducers, middleware)
+const store = createStore(allReducers, middleware)
 
 const App = () => (
   <Provider store={store} >

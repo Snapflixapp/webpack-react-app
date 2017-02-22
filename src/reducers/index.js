@@ -1,11 +1,15 @@
 import {combineReducers} from 'redux'
-import user from './UserReducer'
-import users from './UsersReducer'
-import videos from './VideosReducer'
+import userReducer from './UserReducer'
+import usersReducer from './UsersReducer'
+import videosReducer from './VideosReducer'
+import usersDataReducer from './UsersDataReducer'
 
 // combine all reducers
-export default combineReducers({
-  user,
-  users,
-  videos
+const allReducers = combineReducers({
+  user: userReducer,
+  users: usersReducer,
+  usersData: usersDataReducer,
+  videos: videosReducer
 })
+
+export default allReducers
