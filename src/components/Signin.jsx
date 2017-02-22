@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { selectUser } from '../actions/UserAction'
+import * as userAction from '../actions/UserAction'
 
 class Signin extends React.Component {
   constructor (props) {
@@ -14,11 +14,28 @@ class Signin extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.createListItem = this.createListItem.bind(this)
+    this.handleNameText = this.handleNameText.bind(this)
+    this.handlePasswordText = this.handlePasswordText.bind(this)
   }
 
-  handleSubmit (event) {
-    event.preventDefault()
-    console.log('CLICKED')
+  handleNameText (e) {
+    this.setState({
+      username: e.target.value
+    })
+    console.log(this.state.username)
+  }
+
+  handlePasswordText (e) {
+    this.setState({
+      password: e.target.value
+    })
+    console.log(this.state.password)
+  }
+
+  handleSubmit (e) {
+    e.preventDefault()
+    let nameAndPassword = this.state.username + ' ' + this.state.password
+    this.props.signUpUser(nameAndPassword)
   }
 
   createListItem () {
@@ -33,13 +50,13 @@ class Signin extends React.Component {
     return (
       <div className='container'>
       Signin
-      <input type='text' /><br/>
-      <input type='text' />
-      <button type='submit' onClick={this.handleSubmit} >Sign in</button>
-      <ul>
-      {this.createListItem()}
-      </ul>
-      <p>{this.props.user.description} {this.props.user.age}</p>
+        <input type='text' onChange={this.handleNameText} /><br/>
+        <input type='text' onChange={this.handlePasswordText} />
+        <button type='submit' onClick={this.handleSubmit} >Sign in</button>
+          <ul>
+          {this.createListItem()}
+          </ul>
+          <p>{this.props.user.description} {this.props.user.age}</p>
       </div>
     )
   }
@@ -54,7 +71,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
-    selectUser: selectUser
+    selectUser: userAction.selectUser,
+    signUpUser: userAction.signUpUser
   }, dispatch)
 }
 

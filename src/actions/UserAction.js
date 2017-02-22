@@ -10,6 +10,14 @@ export const selectUser = (user) => {
   }
 }
 
+export const signUpUser = (nameAndPassword) => {
+  console.log('submit clicked', nameAndPassword)
+  return {
+    type: 'SIGN_UP',
+    payload: nameAndPassword
+  }
+}
+
 // import axios from 'axios'
 // import {store} from '../store'
 
