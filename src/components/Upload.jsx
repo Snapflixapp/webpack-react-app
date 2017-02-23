@@ -5,9 +5,8 @@ export class Upload extends Component {
 
   render () {
     return (
-      <div style={styles.title}>
-        Test Sign In
-        {console.log('in upload component')}
+      <div className={styles.title}>
+        Upload Page
       </div>
     )
   }

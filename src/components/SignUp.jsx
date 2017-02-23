@@ -1,26 +1,45 @@
 import React, {Component} from 'react'
-import styles from './SignIn.css'
+import styles from './SignUp.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 // import * as userAction from '../actions/UserAction'
 
-export class SignIn extends Component {
+export class SignUp extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
+      firstName: '',
+      lastName: '',
       username: '',
       password: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     //this.createListItem = this.createListItem.bind(this)
-    this.handleNameText = this.handleNameText.bind(this)
+    this.handleFirstNameText = this.handleFirstNameText.bind(this)
+    this.handleLastNameText = this.handleLastNameText.bind(this)
+    this.handleUsernameText = this.handleUsernameText.bind(this)
     this.handlePasswordText = this.handlePasswordText.bind(this)
   }
 
-  handleNameText (e) {
+
+  handleFirstNameText (e) {
+    this.setState({
+      firstName: e.target.value
+    })
+    console.log(this.state.firstName)
+  }
+
+  handleLastNameText (e) {
+    this.setState({
+      lastName: e.target.value
+    })
+    console.log(this.state.lastName)
+  }
+
+  handleUsernameText (e) {
     this.setState({
       username: e.target.value
     })
@@ -36,8 +55,13 @@ export class SignIn extends Component {
 
   handleSubmit (e) {
     e.preventDefault()
-    let nameAndPassword = this.state.username + ' ' + this.state.password
-    this.props.signUpUser(nameAndPassword)
+    let newUserInfo = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      username: this.state.username,
+      password: this.state.password
+    }
+    this.props.signUpUser(newUserInfo)
   }
 
   // createListItem () {
@@ -51,17 +75,22 @@ export class SignIn extends Component {
   render () {
     return (
       <div className={styles.container}>
-        <h1 className={styles.title}>Sign in</h1>
+        <h1 className={styles.title}>Sign up</h1>
         <form onSubmit={this.handleSubmit}>
+          <label>First Name: </label>
+          <input type='text' onChange={this.handleFirstNameText} />
+          <br />
+          <label>Last Name: </label>
+          <input type='text' onChange={this.handleLastNameText} />
+          <br />
           <label>Username: </label>
-          <input type='text' onChange={this.handleNameText} />
+          <input type='text' onChange={this.handleUsernameText} />
           <br />
           <label>Password: </label>
           <input type='text' onChange={this.handlePasswordText} />
           <br />
-          <button className={styles.signInButton} type='submit' onClick={this.handleSubmit}>Sign in</button>
+          <button className={styles.signInButton} type='submit' onClick={this.handleSubmit}>Sign up</button>
           <br />
-          <Link to='/signup'>Don't have an account? Click here to sign up!</Link>
         </form>
       </div>
     )
