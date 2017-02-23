@@ -1,8 +1,11 @@
 import React from 'react'
-import {SplashPage} from './SplashPage'
+
+import {Navbar} from './Navbar'
 
 const App = () => (
-  <SplashPage />
+  <div>
+    <Navbar />
+  </div>
 )
 
 export default App

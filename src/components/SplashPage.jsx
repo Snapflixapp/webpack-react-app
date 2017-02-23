@@ -1,24 +1,15 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router'
 import styles from './SplashPage.css'
 
 export class SplashPage extends Component {
-  constructor (props) {
-    super(props)
-
-    this.handlePageClick = this.handlePageClick.bind(this)
-  }
-
-  handlePageClick () {
-    console.log('page clicked')
-  }
 
   render () {
     return (
-      <div className={styles.main} onClick={this.handlePageClick}>
+      <Link to='/' className={styles.main}>
         <h3 className={styles.title}>Snapflixapp</h3>
-        <img
-          className={styles.splashImage} src={'http://i.giphy.com/9EQ43fJGgRaFi.gif'} />
-      </div>
+        <img className={styles.splashImage} src={'http://i.giphy.com/9EQ43fJGgRaFi.gif'} />
+      </Link>
     )
   }
 }
