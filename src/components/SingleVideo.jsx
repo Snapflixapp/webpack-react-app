@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router'
 import styles from './SingleVideo.css'
-//here we will import the videos from the video array in the main page
-//we will also import comments from a comments array
-
+// import { Link } from 'react-router'
+// here we will import the videos from the video array in the main page
+// we will also import comments from a comments array
 
 const video = {
   kind: 'youtube#searchResult',
@@ -42,9 +41,7 @@ const video = {
 const SingleVideo = () => (
   <div className={styles.main}>
     <div className={styles.video}>
-{//iframe source will be the video we capture from the upload page
-      <iframe src={`https://www.youtube.com/embed/${video.id.videoId}`} allowFullScreen></iframe>
-    }
+      <iframe src={`https://www.youtube.com/embed/${video.id.videoId}`} allowFullScreen />
     </div>
     <div>
       <div>
@@ -53,7 +50,6 @@ const SingleVideo = () => (
       <div>{video.snippet.description}</div>
     </div>
   </div>
-);
-    
+)
 
 export default SingleVideo
