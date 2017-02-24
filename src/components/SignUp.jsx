@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import styles from './SignUp.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { Link } from 'react-router'
+// import { bindActionCreators } from 'redux'
+// import { connect } from 'react-redux'
+// import { Link } from 'react-router'
 // import * as userAction from '../actions/UserAction'
 
 export class SignUp extends Component {
@@ -17,13 +17,12 @@ export class SignUp extends Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
-    //this.createListItem = this.createListItem.bind(this)
+    // this.createListItem = this.createListItem.bind(this)
     this.handleFirstNameText = this.handleFirstNameText.bind(this)
     this.handleLastNameText = this.handleLastNameText.bind(this)
     this.handleUsernameText = this.handleUsernameText.bind(this)
     this.handlePasswordText = this.handlePasswordText.bind(this)
   }
-
 
   handleFirstNameText (e) {
     this.setState({

@@ -3,7 +3,7 @@ import {Route, IndexRoute} from 'react-router'
 
 // these are all the components that will be assigned to a route
 import App from './components/App'
-import {VideoList} from './containers/VideoList'
+import VideoList from './containers/VideoList'
 import {SignIn} from './components/SignIn'
 import {SignUp} from './components/SignUp'
 import {Upload} from './components/Upload'

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import styles from './SignIn.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+// import { bindActionCreators } from 'redux'
+// import { connect } from 'react-redux'
 import { Link } from 'react-router'
 // import * as userAction from '../actions/UserAction'
 
@@ -15,7 +15,7 @@ export class SignIn extends Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
-    //this.createListItem = this.createListItem.bind(this)
+    // this.createListItem = this.createListItem.bind(this)
     this.handleNameText = this.handleNameText.bind(this)
     this.handlePasswordText = this.handlePasswordText.bind(this)
   }
