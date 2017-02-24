@@ -1,4 +1,5 @@
 let initialState = {
+  // will leave first name and last name out for now
   // firstName: null,
   // lastName: null,
   username: null,
