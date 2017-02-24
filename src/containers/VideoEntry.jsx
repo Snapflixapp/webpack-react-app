@@ -7,7 +7,6 @@ export class VideoEntry extends Component {
   // }
 
   render () {
-    console.log('this is video', this.props.video.snippet.title)
     return (
       <div className={styles.title}>
 

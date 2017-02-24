@@ -24,9 +24,7 @@ import routes from './routes'
 const render = () => {
   ReactDOM.render(
     <AppContainer>
-
       <Router history={browserHistory} routes={routes} />
-
     </AppContainer>,
     document.getElementById('root')
   )
