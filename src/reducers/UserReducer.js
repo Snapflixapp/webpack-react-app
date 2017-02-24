@@ -1,9 +1,11 @@
-export default function reducer (state = {
+let initialState = {
   // firstName: null,
   // lastName: null,
   username: null,
   password: null
-}, action) {
+}
+
+export default function reducer (state = initialState, action) {
   switch (action.type) {
     case 'SIGN_UP_FULFILLED': {
       return Object.assign({}, state, {
