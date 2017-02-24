@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Snapflixapp/webpack-react-app#readme",
   "dependencies": {
+    "axios": "^0.15.3",
     "dotenv": "^4.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
