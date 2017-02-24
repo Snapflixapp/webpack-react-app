@@ -1,8 +1,11 @@
 import React from 'react'
-import {SplashPage} from './SplashPage'
+// import {SplashPage} from './SplashPage'
+import SingleVideo from './SingleVideo'
 
 const App = () => (
-  <SplashPage />
+  <div>
+    <SingleVideo />
+  </div>
 )
 
 export default App
