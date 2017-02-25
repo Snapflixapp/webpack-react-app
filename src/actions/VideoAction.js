@@ -1,8 +1,7 @@
-// 'use strict'
-
-// export const VideoAction = (video) => {
-//   return {
-//     type: 'FETCH_VIDEO',
-//     payload: video
-//   }
-// }
+export function selectVideo (video) {
+  console.log('from action', video)
+  return {
+    type: 'VIDEO_SELECTED',
+    payload: video
+  }
+}

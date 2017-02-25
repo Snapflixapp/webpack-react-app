@@ -10,8 +10,8 @@ export default function reducer (state, action) {
   switch (action.type) {
     case 'SIGN_UP_FULFILLED': {
       return Object.assign({}, state, {
-        // username: action.payload.username,
-        // password: action.payload.password
+        username: action.payload.username,
+        password: action.payload.password
       })
     }
   }
