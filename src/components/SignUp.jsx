@@ -57,13 +57,14 @@ class SignUp extends Component {
       password: this.state.password
     }
     this.props.signUpUser(newUserInfo)
+    this.refs.info.reset()
   }
 
   render () {
     return (
       <div className={styles.container}>
         <h1 className={styles.title}>Sign up</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form ref='info' onSubmit={this.handleSubmit}>
           {
           //  <label>First Name: </label>
           //  <input type='text' onChange={this.handleFirstNameText} />
@@ -73,10 +74,10 @@ class SignUp extends Component {
           //  <br />
         }
           <label>Username: </label>
-          <input type='text' onChange={this.handleUsernameText} />
+          <input type='text' placeholder='Username' onChange={this.handleUsernameText} />
           <br />
           <label>Password: </label>
-          <input type='text' onChange={this.handlePasswordText} />
+          <input type='password' placeholder='Password' onChange={this.handlePasswordText} />
           <br />
           <button className={styles.signInButton} type='submit' onClick={this.handleSubmit}>Sign up</button>
           <br />

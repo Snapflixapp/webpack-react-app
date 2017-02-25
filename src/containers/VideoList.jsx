@@ -11,7 +11,7 @@ class VideoList extends Component {
   render () {
     console.log(this.props)
     return (
-      <div className={styles.title}>
+      <div className={styles.main}>
         {this.props.videos.map((video, index) => (
           <VideoEntry key={index} video={video} />
         ))

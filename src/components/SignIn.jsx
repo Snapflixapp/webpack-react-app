@@ -40,14 +40,6 @@ export class SignIn extends Component {
     this.props.signUpUser(nameAndPassword)
   }
 
-  // createListItem () {
-  //   return this.props.usersData.map((user) => {
-  //     return (
-  //       <li key={user.id} onClick={() => { this.props.selectUser(user) }} >{user.name} {user.description}</li>
-  //     )
-  //   })
-  // }
-
   render () {
     return (
       <div className={styles.container}>
