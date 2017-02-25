@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux'
-import FakeVideoData from './FakeVideoData'
-import UserReducer from './UserReducer'
+import videoData from './FakeVideoData'
+import userReducer from './UserReducer'
+import activeVideoReducer from './ActiveVideoReducer'
 
 const allReducers = combineReducers({
-  videoData: FakeVideoData,
-  userReducer: UserReducer
+  videoData,
+  userReducer,
+  activeVideoReducer
 })
 
 export default allReducers

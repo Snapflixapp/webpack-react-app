@@ -1,19 +1,19 @@
 import React, {Component} from 'react'
 import styles from './VideoEntry.css'
 
-export class VideoEntry extends Component {
+class VideoEntry extends Component {
   // constructor (props) {
   //   super(props)
   // }
 
   render () {
-    console.log('this is video', this.props.video.snippet.title)
     return (
       <div className={styles.entry}>
+        { console.log('this is video entry', this.props.video.id) }
         <div>
           <iframe src={`https://www.youtube.com/embed/${this.props.video.id.videoId}`} allowFullScreen />
         </div>
-        <div className={styles.videoInfo}>
+        <div>
           <div>
             {this.props.video.snippet.title}
           </div>
@@ -25,3 +25,5 @@ export class VideoEntry extends Component {
     )
   }
 }
+
+export default VideoEntry
