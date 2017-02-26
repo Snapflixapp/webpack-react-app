@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from './VideoEntry.css'
 
 class VideoEntry extends Component {

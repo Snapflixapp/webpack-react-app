@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {Navbar} from './Navbar'
-import {Provider} from 'react-redux'
+import { Navbar } from './Navbar'
+import { Provider } from 'react-redux'
 
-import {applyMiddleware, createStore} from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 
 // thunk is an action creater that returns function to allow async operation
 import thunk from 'redux-thunk'

@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router'
+import React, { Component } from 'react'
+import { Link } from 'react-router'
 import styles from './VideoList.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import VideoEntry from './VideoEntry'
-import {selectVideo} from '../actions/VideoAction'
+import { selectVideo } from '../actions/VideoAction'
 
 class VideoList extends Component {
   constructor (props) {

@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from './SignIn.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import * as userAction from '../actions/UserAction'
+import { signInUser } from '../actions/UserAction'
 
 class SignIn extends Component {
   constructor (props) {
@@ -65,13 +65,13 @@ class SignIn extends Component {
   }
 }
 
-function mapStateToProps (state) {
+const mapStateToProps = (state) => {
   return {}
 }
 
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    signInUser: userAction.signInUser
+    signInUser: signInUser
   }, dispatch)
 }
 
