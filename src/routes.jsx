@@ -9,6 +9,7 @@ import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import {Upload} from './components/Upload'
 import {NoMatch} from './components/NoMatch'
+// import RecordPage from './components/s3UploadPage'
 
 export default (
   <Route path='/' component={App}>
