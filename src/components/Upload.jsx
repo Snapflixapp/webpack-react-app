@@ -42,7 +42,7 @@ export class Upload extends Component {
 
   render () {
     return (
-      <div className={styles.main}>
+      <div className={styles.container}>
         Upload Page
         <VideoStream src={this.state.src} width={this.state.width} height={this.state.height} />
         <Canvas width={this.state.width} height={this.state.height} />

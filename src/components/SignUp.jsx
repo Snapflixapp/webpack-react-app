@@ -9,45 +9,25 @@ class SignUp extends Component {
     super(props)
 
     this.state = {
-      // firstName: '',
-      // lastName: '',
       username: '',
       password: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
-    // this.handleFirstNameText = this.handleFirstNameText.bind(this)
-    // this.handleLastNameText = this.handleLastNameText.bind(this)
     this.handleUsernameText = this.handleUsernameText.bind(this)
     this.handlePasswordText = this.handlePasswordText.bind(this)
   }
-
-  // handleFirstNameText (e) {
-  //   this.setState({
-  //     firstName: e.target.value
-  //   })
-  //   console.log(this.state.firstName)
-  // }
-  //
-  // handleLastNameText (e) {
-  //   this.setState({
-  //     lastName: e.target.value
-  //   })
-  //   console.log(this.state.lastName)
-  // }
 
   handleUsernameText (e) {
     this.setState({
       username: e.target.value
     })
-    console.log(this.state.username)
   }
 
   handlePasswordText (e) {
     this.setState({
       password: e.target.value
     })
-    console.log(this.state.password)
   }
 
   handleSubmit (e) {
@@ -56,30 +36,24 @@ class SignUp extends Component {
       username: this.state.username,
       password: this.state.password
     }
-    this.props.signUpUser(newUserInfo)
     this.refs.info.reset()
+    this.props.signUpUser(newUserInfo)
   }
 
   render () {
     return (
       <div className={styles.container}>
-        <h1 className={styles.title}>Sign up</h1>
+        <h1>Sign up</h1>
         <form ref='info' onSubmit={this.handleSubmit}>
-          {
-          //  <label>First Name: </label>
-          //  <input type='text' onChange={this.handleFirstNameText} />
-          //  <br />
-          //  <label>Last Name: </label>
-          //  <input type='text' onChange={this.handleLastNameText} />
-          //  <br />
-        }
           <label>Username: </label>
-          <input type='text' placeholder='Username' onChange={this.handleUsernameText} />
+          <br />
+          <input className={styles.signUpInput} type='text' placeholder='Username' onChange={this.handleUsernameText} />
           <br />
           <label>Password: </label>
-          <input type='password' placeholder='Password' onChange={this.handlePasswordText} />
           <br />
-          <button className={styles.signInButton} type='submit' onClick={this.handleSubmit}>Sign up</button>
+          <input className={styles.signUpInput} type='password' placeholder='Password' onChange={this.handlePasswordText} />
+          <br />
+          <button className={styles.signUpButton} type='submit' onClick={this.handleSubmit}>Sign up</button>
           <br />
         </form>
       </div>
@@ -88,7 +62,9 @@ class SignUp extends Component {
 }
 
 function mapStateToProps (state) {
-  return {}
+  return {
+    user: state.userReducer
+  }
 }
 
 function mapDispatchToProps (dispatch) {

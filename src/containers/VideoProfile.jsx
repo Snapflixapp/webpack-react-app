@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import VideoEntry from './VideoEntry'
 import CommentForm from '../components/Comment'
+import styles from './VideoProfile.css'
 
 class VideoProfile extends Component {
   // constructor (props) {
@@ -10,10 +11,16 @@ class VideoProfile extends Component {
 
   render () {
     return (
-      <div>
+      <div className={styles.container}>
         {console.log('looking for props', this.props.activeVideo)}
-        <VideoEntry video={this.props.activeVideo} />
-        // <CommentForm {...this.props} />
+        <div>
+          <div>
+            <VideoEntry video={this.props.activeVideo} />
+          </div>
+          <div>
+            <CommentForm {...this.props} />
+          </div>
+        </div>
       </div>
     )
   }
