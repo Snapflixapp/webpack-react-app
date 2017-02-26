@@ -21,14 +21,12 @@ class VideoList extends Component {
   render () {
     console.log(this.props)
     return (
-      <div className={styles.main}>
+      <div className={styles.container}>
         {this.props.videos.map((video, index) => (
-          <div>
-            <br />
-            <Link to={`/video/${index}`} key={index + 20} onClick={() => (this.handleVideoClick(video))}>
+          <div key={index + 1 * 0.789} className={styles.item}>
+            <Link to={`/video/${index}`} key={index + 1 * 0.345} onClick={() => (this.handleVideoClick(video))}>
               <VideoEntry video={video} key={index} />
             </Link>
-            <br />
           </div>
         ))
         }
@@ -39,7 +37,8 @@ class VideoList extends Component {
 
 function mapStateToProps (state) {
   return {
-    videos: state.videoData
+    videos: state.videoData,
+    user: state.userReducer
   }
 }
 

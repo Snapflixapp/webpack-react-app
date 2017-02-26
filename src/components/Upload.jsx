@@ -68,10 +68,12 @@ export class Upload extends Component {
   }
   render () {
     return (
+
       <div className={styles.main}>
         <VideoStream src={this.state.src} ref='video' width={this.state.width} height={this.state.height} />
         {this.state.uploading ? <div>Uploading...</div> : null}
         <div><button onClick={this.startRecord}>Start Record</button></div>
+
       </div>
     )
   }
