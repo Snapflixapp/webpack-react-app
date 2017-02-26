@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './VideoStream.css'
 // import RecordPage from './s3UploadPage'
-class VideoStream extends Component {
+export default class VideoStream extends Component {
   // constructor (props) {
   //   super(props)
   // }
@@ -15,5 +15,3 @@ class VideoStream extends Component {
     )
   }
 }
-
-export default VideoStream

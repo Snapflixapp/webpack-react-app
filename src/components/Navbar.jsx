@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import styles from './Navbar.css'
 
-export const Navbar = () => (
+export default () => (
   <div className={styles.nav}>
     <div className={styles.container}>
       <h1 className={styles.title}><Link to='/'>Snapflix</Link></h1>

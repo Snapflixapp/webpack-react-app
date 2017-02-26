@@ -6,7 +6,8 @@ import RecordRTC from 'recordrtc'
 // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
 // navigator.msGetUserMedia || navigator.oGetUserMedia
 const hasGetUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
-export class Upload extends Component {
+
+export default class Upload extends Component {
   constructor (props) {
     super(props)
     this.state = {

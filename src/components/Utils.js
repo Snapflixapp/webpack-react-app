@@ -5,7 +5,7 @@
 import { fetch } from 'react'
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
-exports.captureUserMedia = (callback) => {
+export function captureUserMedia (callback) {
   var params = { audio: false, video: true }
   navigator.getUserMedia(params, callback, (error) => {
     console.log(JSON.stringify(error))
@@ -38,7 +38,7 @@ const createCORSRequest = (method, url) => {
   return xhr
 }
 
-exports.S3Upload = (fileInfo) => { // parameters: { type, data, id }
+export function S3Upload (fileInfo) { // parameters: { type, data, id }
   return new Promise((resolve, reject) => {
     getSignedUrl(fileInfo)
     .then((s3Info) => {
