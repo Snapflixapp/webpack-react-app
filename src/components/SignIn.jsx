@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from './SignIn.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -65,11 +65,11 @@ class SignIn extends Component {
   }
 }
 
-function mapStateToProps (state) {
+const mapStateToProps = (state) => {
   return {}
 }
 
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     signInUser: userAction.signInUser
   }, dispatch)

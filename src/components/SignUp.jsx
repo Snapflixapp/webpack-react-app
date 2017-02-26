@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from './SignUp.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -61,13 +61,13 @@ class SignUp extends Component {
   }
 }
 
-function mapStateToProps (state) {
+const mapStateToProps = (state) => {
   return {
     user: state.userReducer
   }
 }
 
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     signUpUser: userAction.signUpUser
   }, dispatch)

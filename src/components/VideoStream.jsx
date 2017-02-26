@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from './VideoStream.css'
 // import RecordPage from './s3UploadPage'
 class VideoStream extends Component {
@@ -17,4 +17,3 @@ class VideoStream extends Component {
 }
 
 export default VideoStream
-

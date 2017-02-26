@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 import videoData from './FakeVideoData'
 import userReducer from './UserReducer'
 import activeVideoReducer from './ActiveVideoReducer'

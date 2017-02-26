@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router'
+import React, { Component } from 'react'
+import { Link } from 'react-router'
 import styles from './SplashPage.css'
 
 export class SplashPage extends Component {

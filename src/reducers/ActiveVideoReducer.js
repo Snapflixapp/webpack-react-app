@@ -1,6 +1,6 @@
 var initialState = {}
 
-export default function reducer (state, action) {
+export default (state, action) => {
   if (typeof state === 'undefined') {
     state = initialState
   }

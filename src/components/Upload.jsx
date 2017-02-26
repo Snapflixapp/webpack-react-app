@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from './Upload.css'
 import { captureUserMedia, S3Upload } from './Utils'
 import VideoStream from './VideoStream'
