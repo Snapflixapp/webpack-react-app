@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-exports.signUpUser = (newUserInfo) => {
+export function signUpUser (newUserInfo) {
   axios({
     method: 'POST',
     url: 'https://api.snapflixapp.com/auth/register',
