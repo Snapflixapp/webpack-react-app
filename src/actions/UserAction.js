@@ -5,7 +5,7 @@ export function signUpUser (newUserInfo) {
     method: 'POST',
     url: 'https://api.snapflixapp.com/auth/register',
     data: newUserInfo
-  }).then(function (response) {
+  }).then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
     console.log('testing sign in', response)
     return {
@@ -13,7 +13,7 @@ export function signUpUser (newUserInfo) {
       payload: response.data
     }
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.log(err)
   })
 }
@@ -24,7 +24,7 @@ export function signInUser (userInfo) {
     url: 'https://api.snapflixapp.com/auth/login',
     data: userInfo
   })
-  .then(function (response) {
+  .then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
     console.log('testing sign in', response)
     return {
@@ -32,7 +32,7 @@ export function signInUser (userInfo) {
       payload: response.data
     }
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.log(err)
   })
 }

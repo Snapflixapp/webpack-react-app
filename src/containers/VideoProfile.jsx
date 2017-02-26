@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import VideoEntry from './VideoEntry'
 import CommentForm from '../components/Comment'
 import styles from './VideoProfile.css'
@@ -26,7 +26,7 @@ class VideoProfile extends Component {
   }
 }
 
-function mapStateToProps (state) {
+const mapStateToProps = (state) => {
   return {
     activeVideo: state.activeVideoReducer
   }

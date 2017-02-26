@@ -70,7 +70,7 @@ module.exports = (env) => {
     module: {
       rules: removeEmpty([
         {
-          test: /\.jsx$/,
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           loaders: [
             'babel-loader'

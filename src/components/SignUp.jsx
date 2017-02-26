@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styles from './SignUp.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as userAction from '../actions/UserAction'
+import { signUpUser } from '../actions/UserAction'
 
 class SignUp extends Component {
   constructor (props) {
@@ -61,15 +61,15 @@ class SignUp extends Component {
   }
 }
 
-function mapStateToProps (state) {
+const mapStateToProps = (state) => {
   return {
     user: state.userReducer
   }
 }
 
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    signUpUser: userAction.signUpUser
+    signUpUser: signUpUser
   }, dispatch)
 }
 

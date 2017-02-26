@@ -1,34 +1,35 @@
 import React, { Component } from 'react'
-import {Navbar} from './Navbar'
-import {Provider} from 'react-redux'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import {applyMiddleware, createStore} from 'redux'
+import styles from './App.css'
 
-// thunk is an action creater that returns function to allow async operation
-import thunk from 'redux-thunk'
+import Main from '../components/Main'
+import NavBar from '../components/Navbar'
+import SignIn from '../components/SignIn'
+import SignUp from '../components/SignUp'
+import Upload from '../components/Upload'
+import NoMatch from '../components/NoMatch'
+import VideoList from '../containers/VideoList'
+import VideoProfile from '../containers/VideoProfile'
 
-// promisify axios call with pre-defined action type
-import promise from 'redux-promise-middleware'
-
-// logger will track the axio request
-import logger from 'redux-logger'
-// bring in all reducers
-import allReducers from '../reducers'
-
-const middleWare = applyMiddleware(promise(), thunk, logger())
-const store = createStore(allReducers, middleWare)
-
-class App extends Component {
+export default class App extends Component {
   render () {
     return (
-      <Provider store={store} >
-        <div>
-          <Navbar />
-          <div>{this.props.children}</div>
+      <Router>
+        <div className={styles.app}>
+          <NavBar />
+          <Main>
+            <Switch>
+              <Route exact path='/' component={VideoList} />
+              <Route path='/signin' component={SignIn} />
+              <Route path='/signup' component={SignUp} />
+              <Route path='/upload' component={Upload} />
+              <Route path='/video/:index' component={VideoProfile} />
+              <Route component={NoMatch} />
+            </Switch>
+          </Main>
         </div>
-      </Provider>
+      </Router>
     )
   }
 }
-
-export default App

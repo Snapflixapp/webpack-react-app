@@ -1,25 +1,30 @@
-'use strict'
 /* global XMLHttpRequest, XDomainRequest */
+
+'use strict'
+
 import { fetch } from 'react'
+
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 export function captureUserMedia (callback) {
   var params = { audio: false, video: true }
-  navigator.getUserMedia(params, callback, function (error) {
+  navigator.getUserMedia(params, callback, (error) => {
     console.log(JSON.stringify(error))
   })
 }
+
 // handle S3 upload
-function getSignedUrl (file) {
+const getSignedUrl = (file) => {
   var queryString = '?objectName=' + file.id + '&contentType=' + encodeURIComponent(file.type)
   return fetch('/s3/sign' + queryString)
-  .then(function (response) {
+  .then((response) => {
     return response.json()
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.log('error: ', err)
   })
 }
-function createCORSRequest (method, url) {
+
+const createCORSRequest = (method, url) => {
   var xhr = new XMLHttpRequest()
   if (xhr.withCredentials != null) {
     xhr.open(method, url, true)
@@ -32,13 +37,14 @@ function createCORSRequest (method, url) {
   }
   return xhr
 }
+
 export function S3Upload (fileInfo) { // parameters: { type, data, id }
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     getSignedUrl(fileInfo)
-    .then(function (s3Info) {
+    .then((s3Info) => {
       // upload to S3
       var xhr = createCORSRequest('PUT', s3Info.signedUrl)
-      xhr.onload = function () {
+      xhr.onload = () => {
         if (xhr.status === 200) {
           console.log(xhr.status)
           resolve(true)
