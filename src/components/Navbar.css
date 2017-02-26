@@ -1,28 +1,44 @@
 .nav {
+  position: fixed;
+  width: 100%;
   display: flex;
   justify-content: center;
-  height: 5em;
-  box-shadow:0px 1px 1px #ccc;
-  background-color: white;
+  height: 4em;
+  padding-top: 2px;
+  box-shadow: 0px 2px 40px 0px rgba(0,0,0,0.08);
+  background-color: rgba(255, 255, 255, .98);
+  z-index: 9999;
 }
+
 .container {
   display: flex;
   justify-content: flex-end;
+  align-content: center;
+  align-items: center;
   width: 80%;
+  font-size: .8em;
 }
+
 .title {
   flex-grow: 2;
 }
+
 .nav ul {
   display: flex;
   justify-content: space-between;
 }
+
 .nav li {
   display: flex;
   align-items: center;
 }
+
 .nav a {
   display: flex;
   align-items: center;
   padding: 10px 15px;
+}
+
+.nav h1 {
+  margin: 0;
 }
