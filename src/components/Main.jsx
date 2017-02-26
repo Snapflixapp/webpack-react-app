@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './main.css'
+import styles from './Main.css'
 
 const Main = (props) => (
   <div className={styles.main} {...props} />
