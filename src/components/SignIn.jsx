@@ -3,7 +3,7 @@ import styles from './SignIn.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import * as userAction from '../actions/UserAction'
+import { signInUser } from '../actions/UserAction'
 
 class SignIn extends Component {
   constructor (props) {
@@ -71,7 +71,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    signInUser: userAction.signInUser
+    signInUser: signInUser
   }, dispatch)
 }
 
