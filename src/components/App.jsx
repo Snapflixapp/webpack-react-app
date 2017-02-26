@@ -4,7 +4,6 @@ import {Provider} from 'react-redux'
 
 import {applyMiddleware, createStore} from 'redux'
 
-
 // thunk is an action creater that returns function to allow async operation
 import thunk from 'redux-thunk'
 
@@ -17,6 +16,7 @@ import logger from 'redux-logger'
 import allReducers from '../reducers'
 
 const middleWare = applyMiddleware(promise(), thunk, logger())
+const store = createStore(allReducers, middleWare)
 
 class App extends Component {
   render () {
