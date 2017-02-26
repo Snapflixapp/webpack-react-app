@@ -19,18 +19,12 @@ class VideoStream extends Component {
 
   render () {
     return (
-      <div className={styles.main}>
+      <div className={styles.container}>
         <video ref='video' autoPlay='true' src={this.props.src} width={this.props.width} height={this.props.height} />
         <button onClick={this.handlePlay}>Play</button>
       </div>
     )
   }
 }
-
-// const VideoStream = (props) => (
-//   <div className={styles.main}>
-//     <video autoPlay='true' src={props.src} width={props.width} height={props.height} />
-//   </div>
-// )
 
 export default VideoStream

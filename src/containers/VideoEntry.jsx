@@ -8,9 +8,8 @@ class VideoEntry extends Component {
 
   render () {
     return (
-      <div className={styles.entry}>
-        { console.log('this is video entry', this.props.video.id) }
-        <div>
+      <div className={styles.container}>
+        <div className={styles.vid}>
           <iframe src={`https://www.youtube.com/embed/${this.props.video.id.videoId}`} allowFullScreen />
         </div>
         <div>

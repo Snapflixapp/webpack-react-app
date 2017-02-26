@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import styles from './SignIn.css'
-// import { bindActionCreators } from 'redux'
-// import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
-// import * as userAction from '../actions/UserAction'
+import * as userAction from '../actions/UserAction'
 
-export class SignIn extends Component {
+class SignIn extends Component {
   constructor (props) {
     super(props)
 
@@ -15,7 +15,6 @@ export class SignIn extends Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
-    // this.createListItem = this.createListItem.bind(this)
     this.handleNameText = this.handleNameText.bind(this)
     this.handlePasswordText = this.handlePasswordText.bind(this)
   }
@@ -24,38 +23,56 @@ export class SignIn extends Component {
     this.setState({
       username: e.target.value
     })
-    console.log(this.state.username)
   }
 
   handlePasswordText (e) {
     this.setState({
       password: e.target.value
     })
-    console.log(this.state.password)
   }
 
   handleSubmit (e) {
     e.preventDefault()
-    let nameAndPassword = this.state.username + ' ' + this.state.password
-    this.props.signUpUser(nameAndPassword)
+    var userInfo = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    this.refs.info.reset()
+    this.props.signInUser(userInfo)
   }
 
   render () {
     return (
       <div className={styles.container}>
-        <h1 className={styles.title}>Sign in</h1>
-        <form onSubmit={this.handleSubmit}>
+        <h1>Sign in</h1>
+        <form ref='info' onSubmit={this.handleSubmit}>
           <label>Username: </label>
-          <input type='text' onChange={this.handleNameText} />
+          <br />
+          <input className={styles.signInInput} type='text' placeholder='Username' onChange={this.handleNameText} />
           <br />
           <label>Password: </label>
-          <input type='text' onChange={this.handlePasswordText} />
+          <br />
+          <input className={styles.signInInput} type='password' placeholder='Password' onChange={this.handlePasswordText} />
           <br />
           <button className={styles.signInButton} type='submit' onClick={this.handleSubmit}>Sign in</button>
           <br />
-          <Link to='/signup'>Don't have an account? Click here to sign up!</Link>
         </form>
+        <div>
+          <Link to='/signup'>Don't have an account? Sign up</Link>
+        </div>
       </div>
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {}
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({
+    signInUser: userAction.signInUser
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
