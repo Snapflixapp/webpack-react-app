@@ -23,8 +23,8 @@ class CommentForm extends Component {
 
   render () {
     return (
-      <div>
-        <div className={styles.main}><strong>{this.state.author}</strong>{this.state.comment}</div>
+      <div className={styles.inputs}>
+        <div><strong>{this.state.author}</strong>{this.state.comment}</div>
         <form ref='CommentForm'>
           <label>Author</label>
           <input type='text' ref='author' placeholder='Author' />
