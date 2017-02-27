@@ -9,7 +9,7 @@ class CommentForm extends Component {
 
   handleSubmit (e) {
     e.preventDefault()
-    console.log('comment submitted')
+    console.log('comment submitted with ---=>',this.refs.author.value)
   }
 
   render () {
