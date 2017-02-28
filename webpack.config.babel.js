@@ -16,20 +16,20 @@ const BUILD_DIR = resolve(__dirname, 'dist')
 
 module.exports = (env) => {
   // https://www.npmjs.com/package/webpack-config-utils
-  const { ifProd, ifNotProd } = getIfUtils(env)
+  const { ifProduction, ifNotProduction } = getIfUtils(env)
 
   const config = {
     entry: removeEmpty([
       // activate HMR for React
-      ifNotProd('react-hot-loader/patch'),
+      ifNotProduction('react-hot-loader/patch'),
 
       // bundle the client for webpack-dev-server
       // and connect to the provided endpoint
-      ifNotProd('webpack-dev-server/client?http://localhost:8080'),
+      ifNotProduction('webpack-dev-server/client?http://localhost:8080'),
 
       // bundle the client for hot reloading
       // only- means to only hot reload for successful updates
-      ifNotProd('webpack/hot/only-dev-server'),
+      ifNotProduction('webpack/hot/only-dev-server'),
 
       // the entry point of our app
       resolve(APP_DIR, 'index.jsx')
@@ -46,7 +46,7 @@ module.exports = (env) => {
 
     context: APP_DIR,
 
-    devtool: ifProd('source-map', 'eval'),
+    devtool: ifProduction('source-map', 'eval'),
 
     devServer: {
       // enable HMR on the server
@@ -76,7 +76,7 @@ module.exports = (env) => {
             'babel-loader'
           ]
         },
-        ifNotProd({
+        ifNotProduction({
           test: /\.css$/,
           include: resolve(__dirname, 'src'),
           loaders: [
@@ -95,7 +95,7 @@ module.exports = (env) => {
             }
           ]
         }),
-        ifProd({
+        ifProduction({
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
@@ -110,13 +110,13 @@ module.exports = (env) => {
       new ProgressBarPlugin(),
 
       // enable HMR globally
-      ifNotProd(new webpack.HotModuleReplacementPlugin()),
+      ifNotProduction(new webpack.HotModuleReplacementPlugin()),
 
       // prints more readable module names in the browser console on HMR updates
-      ifNotProd(new webpack.NamedModulesPlugin()),
+      ifNotProduction(new webpack.NamedModulesPlugin()),
 
       // https://github.com/webpack-contrib/extract-text-webpack-plugin
-      ifProd(new ExtractTextPlugin({
+      ifProduction(new ExtractTextPlugin({
         filename: './css/[name]-[hash].css',
         allChunks: true
       })),
@@ -129,11 +129,12 @@ module.exports = (env) => {
 
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: ifProd('"production"', '"development"')
-        }
+          NODE_ENV: ifProduction('"production"', '"development"')
+        },
+        __API__: ifProduction('"https://api.snapflixapp.com"', '"http://localhost:3000"')
       }),
 
-      ifProd(new webpack.optimize.UglifyJsPlugin({
+      ifProduction(new webpack.optimize.UglifyJsPlugin({
         compress: {
           screw_ie8: true,
           warnings: false
