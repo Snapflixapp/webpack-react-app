@@ -47,7 +47,7 @@ class SignUpObject extends Component {
       client.enroll(params)
       .then(function (data) {
         let opts = data.body.images[0].transaction
-        console.log('You were enrolled in '+ opts.gallery_name + ' with the username ' + opts.subject_id)
+        console.log('You were enrolled in ' + opts.gallery_name + ' with the username ' + opts.subject_id)
       })
       .catch(function (err) {
         console.log('there was an error', err)
