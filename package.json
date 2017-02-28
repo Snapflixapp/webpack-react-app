@@ -6,8 +6,8 @@
     "start": "webpack-dev-server --env.dev",
     "test": "standard",
     "clean": "rimraf dist",
-    "build": "npm run clean && webpack --env.dev",
-    "deploy": "npm run clean && webpack --env.prod -p",
+    "build": "npm run clean && webpack --env.development",
+    "deploy": "npm run clean && webpack -p --env.production",
     "lint": "standard"
   },
   "repository": {

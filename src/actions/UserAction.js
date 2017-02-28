@@ -1,9 +1,13 @@
+/* global __API__ */
+
+'use strict'
+
 import axios from 'axios'
 
 export function signUpUser (newUserInfo) {
   axios({
     method: 'POST',
-    url: 'https://api.snapflixapp.com/auth/register',
+    url: __API__ + '/auth/register',
     data: newUserInfo
   }).then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
@@ -21,7 +25,7 @@ export function signUpUser (newUserInfo) {
 export function signInUser (userInfo) {
   axios({
     method: 'POST',
-    url: 'https://api.snapflixapp.com/auth/login',
+    url: __API__ + '/auth/login',
     data: userInfo
   })
   .then((response) => {

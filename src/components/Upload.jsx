@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './Upload.css'
-import { captureUserMedia, S3Upload } from './Utils'
+import { captureUserMedia, S3Upload } from '../utils'
 import VideoStream from './VideoStream'
 import RecordRTC from 'recordrtc'
 // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
@@ -16,12 +16,16 @@ export default class Upload extends Component {
       height: 300,
       uploadSuccess: null,
       uploading: false,
-      recordVideo: null
+      recordVideo: null,
+      title: ''
     }
+
     this.requestUserMedia = this.requestUserMedia.bind(this)
+    this.handleTitle = this.handleTitle.bind(this)
     this.startRecord = this.startRecord.bind(this)
     this.stopRecord = this.stopRecord.bind(this)
   }
+
   componentDidMount () {
     if (!hasGetUserMedia) {
       console.log('Your browser cannot stream from your webcam. Please switch to Chrome or Firefox.')
@@ -29,6 +33,13 @@ export default class Upload extends Component {
     }
     this.requestUserMedia()
   }
+
+  handleTitle (e) {
+    this.setState({
+      title: e.target.value
+    })
+  }
+
   requestUserMedia () {
     console.log('requestUserMedia')
     captureUserMedia((stream) => {
@@ -36,6 +47,7 @@ export default class Upload extends Component {
       console.log('setting state', this.state)
     })
   }
+
   startRecord () {
     captureUserMedia((stream) => {
       this.state.recordVideo = RecordRTC(stream, { type: 'video' })
@@ -46,12 +58,13 @@ export default class Upload extends Component {
       this.stopRecord()
     }, 4000)
   }
+
   stopRecord () {
     this.state.recordVideo.stopRecording(() => {
       let params = {
         type: 'video/webm',
         data: this.state.recordVideo.blob,
-        id: Math.floor(Math.random() * 90000) + 10000
+        title: this.state.title || 'Untitled'
       }
       console.log(this.state)
       this.setState({ uploading: true })
@@ -67,14 +80,17 @@ export default class Upload extends Component {
       })
     })
   }
+
   render () {
     return (
 
       <div className={styles.main}>
         <VideoStream src={this.state.src} ref='video' width={this.state.width} height={this.state.height} />
         {this.state.uploading ? <div>Uploading...</div> : null}
+        <br />
+        <div><div>Title:</div><input type='text' className={styles.titleInput} onChange={this.handleTitle} /></div>
+        <br />
         <div><button onClick={this.startRecord}>Start Record</button></div>
-
       </div>
     )
   }
