@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { signInUser } from '../actions/UserAction'
-import PictureObject from './signInWithFace.jsx'
+import PictureObject from './signUpWithFace'
 
 class SignIn extends Component {
   constructor (props) {
