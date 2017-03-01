@@ -10,8 +10,8 @@ class SignUpObject extends Component {
     super(props)
     this.state = {
       src: null,
-      width: 400,
-      height: 400
+      width: 500,
+      height: 500
     }
     this.handleVideo = this.handleVideo.bind(this)
     this.handleError = this.handleError.bind(this)
