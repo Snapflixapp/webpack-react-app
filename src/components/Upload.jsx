@@ -3,8 +3,10 @@ import styles from './Upload.css'
 import { captureUserMedia, S3Upload } from '../utils'
 import VideoStream from './VideoStream'
 import RecordRTC from 'recordrtc'
+
 // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
 // navigator.msGetUserMedia || navigator.oGetUserMedia
+
 const hasGetUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
 export default class Upload extends Component {
@@ -49,12 +51,14 @@ export default class Upload extends Component {
   }
 
   startRecord () {
+    console.log('Starting recording')
     captureUserMedia((stream) => {
       this.state.recordVideo = RecordRTC(stream, { type: 'video' })
       this.state.recordVideo.startRecording()
     })
 
     setTimeout(() => {
+      console.log('Finished recording')
       this.stopRecord()
     }, 4000)
   }
@@ -66,18 +70,15 @@ export default class Upload extends Component {
         data: this.state.recordVideo.blob,
         title: this.state.title || 'Untitled'
       }
-      console.log(this.state)
+
       this.setState({ uploading: true })
 
       S3Upload(params)
-      .then((success) => {
-        console.log('enter then statement')
-        if (success) {
-          this.setState({ uploadSuccess: true, uploading: false })
-        }
-      }, (error) => {
-        console.log(error, 'error occurred. check your aws settings and try again.')
+      .then(success => {
+        console.log('S3 upload successful')
+        this.setState({ uploadSuccess: true, uploading: false })
       })
+      .catch(e => console.log(e))
     })
   }
 
