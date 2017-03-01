@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Kairos from 'kairos-api'
+// import Kairos from 'kairos-api'
 
-const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
+// const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
@@ -44,15 +44,15 @@ class SignUpObject extends Component {
         subject_id: username,
         gallery_name: 'snapflix'
       }
-      client.enroll(params)
-      .then(function (data) {
-        let opts = data.body.images[0].transaction
-        // will redirect to upload or comment page on log in
-        console.log('You were enrolled in ' + opts.gallery_name + ' with the username ' + opts.subject_id)
-      })
-      .catch(function (err) {
-        console.log('there was an error', err)
-      })
+      // client.enroll(params)
+      // .then(function (data) {
+      //   let opts = data.body.images[0].transaction
+      //   // will redirect to upload or comment page on log in
+      //   console.log('You were enrolled in ' + opts.gallery_name + ' with the username ' + opts.subject_id)
+      // })
+      // .catch(function (err) {
+      //   console.log('there was an error', err)
+      // })
     }, 2000)
   }
   updateCanvas () {
