@@ -47,6 +47,7 @@ class SignUpObject extends Component {
       client.enroll(params)
       .then(function (data) {
         let opts = data.body.images[0].transaction
+        //will redirect to upload or comment page on log in
         console.log('You were enrolled in ' + opts.gallery_name + ' with the username ' + opts.subject_id)
       })
       .catch(function (err) {
@@ -66,8 +67,8 @@ class SignUpObject extends Component {
       <div>
         <video src={this.state.src} ref='video' width={this.state.width} height={this.state.height} autoPlay />
         <canvas ref='canvas' width={this.state.width} height={this.state.height} />
-        <input type='text' placeholder='username' ref='username' />
-        <button onClick={this.handlePicture}>Signup with picture</button>
+        <div><input type='text' placeholder='username' ref='username' />
+        <button onClick={this.handlePicture}>Signup with picture</button></div>
       </div>
     )
   }
