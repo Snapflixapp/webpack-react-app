@@ -3,7 +3,7 @@ import styles from './SignUp.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { signUpUser } from '../actions/UserAction'
-import SignUpObject from './SignUpWithFace'
+import SignUpObject from './SignUpWithFace.jsx'
 
 class SignUp extends Component {
   constructor (props) {
