@@ -12,8 +12,7 @@ class SignIn extends Component {
 
     this.state = {
       username: '',
-      password: '',
-      redirectToReferrer: false
+      password: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -44,9 +43,9 @@ class SignIn extends Component {
   }
 
   render () {
-    console.log(this.state.redirectToReferrer)
+    const redirectToReferrer = this.props.redirectToReferrer
     const { from } = this.props.location.state || { from: { pathname: '/' } }
-    if (this.state.redirectToReferrer) {
+    if (redirectToReferrer) {
       return (
         <Redirect to={from} />
       )
@@ -77,7 +76,7 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("MAP STATE TO PROPS", state.userReducer)
+  console.log('MAP STATE TO PROPS', state.userReducer)
   return {
     user: state.userReducer.user,
     fetching: state.userReducer.fetching,

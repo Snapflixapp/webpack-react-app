@@ -1,15 +1,9 @@
-// var initialState = {
-//   username: null,
-//   password: null,
-//   fetching: false,
-//   fetched: false,
-//   error: null
-// }
 import jwtDecode from 'jwt-decode'
 
 export default (state, action) => {
   if (typeof state === 'undefined') {
     state = {
+      redirectToReferrer: false,
       isAuthenticated: false
     }
   }
@@ -27,7 +21,10 @@ export default (state, action) => {
       return Object.assign({}, state, {
         user: action.payload.token,
         fetching: false,
-        fetched: true
+        fetched: true,
+        redirectToReferrer: true,
+        isAuthenticated: true,
+        decoded: jwtDecode(action.payload.token)
       })
     case 'SIGN_IN_PENDING':
       return Object.assign({}, state, {
@@ -46,8 +43,6 @@ export default (state, action) => {
         redirectToReferrer: true,
         isAuthenticated: true,
         decoded: jwtDecode(action.payload.token)
-// decoded.exp < new Date().getTime()
-
       })
     default:
       return state
