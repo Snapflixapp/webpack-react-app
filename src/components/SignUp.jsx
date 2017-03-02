@@ -3,6 +3,7 @@ import styles from './SignUp.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { signUpUser } from '../actions/UserAction'
+import SignUpObject from './signUpWithFace'
 
 class SignUp extends Component {
   constructor (props) {
@@ -43,6 +44,7 @@ class SignUp extends Component {
   render () {
     return (
       <div className={styles.container}>
+        <SignUpObject />
         <h1>Sign up</h1>
         <form ref='info' onSubmit={this.handleSubmit}>
           <label>Username: </label>
