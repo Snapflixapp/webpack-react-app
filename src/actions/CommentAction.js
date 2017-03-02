@@ -1,3 +1,4 @@
+/* global __API__ */
 'use strict'
 
 import axios from 'axios'
