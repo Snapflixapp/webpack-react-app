@@ -17,15 +17,19 @@ import { connect } from 'react-redux'
 // console.log(isAuthenticated)
 
 class App extends Component {
+  // componentWillMount () {
+  //   function verifyToken () {}
+  // }
+
   render () {
     const isAuthenticated = this.props.isAuthenticated
-
     const ProtectedRoute = ({ component, ...rest }) => (
       <Route {...rest} render={props => (
-        isAuthenticated
+        isAuthenticated || window.localStorage.getItem('snapflixtoken')
         ? (React.createElement(component, props))
         : (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />)
-      )} />
+        )
+      } />
     )
     return (
       <Router>

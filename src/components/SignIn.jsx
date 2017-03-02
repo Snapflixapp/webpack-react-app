@@ -76,7 +76,6 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('MAP STATE TO PROPS', state.userReducer)
   return {
     user: state.userReducer.user,
     fetching: state.userReducer.fetching,
