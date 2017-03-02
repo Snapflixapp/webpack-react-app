@@ -11,6 +11,7 @@ import Upload from '../components/Upload'
 import NoMatch from '../components/NoMatch'
 import VideoList from '../containers/VideoList'
 import VideoProfile from '../containers/VideoProfile'
+import { connect } from 'react-redux'
 
 const isAuthenticated = true
 
@@ -22,7 +23,7 @@ const ProtectedRoute = ({ component, ...rest }) => (
   )} />
 )
 
-export default class App extends Component {
+class App extends Component {
   render () {
     return (
       <Router>
@@ -43,3 +44,11 @@ export default class App extends Component {
     )
   }
 }
+
+const matStateToProps = (state) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps)(App)

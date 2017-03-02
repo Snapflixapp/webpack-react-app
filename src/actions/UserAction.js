@@ -23,20 +23,20 @@ export function signUpUser (newUserInfo) {
 }
 
 export function signInUser (userInfo) {
-  axios({
-    method: 'POST',
-    url: __API__ + '/auth/login',
-    data: userInfo
-  })
+  return {
+    type: 'SIGN_IN',
+    payload: axios({
+      method: 'POST',
+      url: __API__ + '/auth/login',
+      data: userInfo
+    })
   .then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
     console.log('testing sign in', response)
-    return {
-      type: 'SIGN_IN',
-      payload: response.data
-    }
+    return response.data
   })
   .catch((err) => {
-    console.log(err)
+    console.log('SIGN IN USER ERR: ', err)
   })
+  }
 }

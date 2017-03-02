@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styles from './SignIn.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { signInUser } from '../actions/UserAction'
 import PictureObject from './signInWithFace.jsx'
 
@@ -12,7 +12,8 @@ class SignIn extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      redirectToReferrer: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -43,6 +44,13 @@ class SignIn extends Component {
   }
 
   render () {
+    console.log(this.state.redirectToReferrer)
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
+    if (this.state.redirectToReferrer) {
+      return (
+        <Redirect to={from} />
+      )
+    }
     return (
       <div className={styles.container}>
         <h1>Sign in</h1>
@@ -69,7 +77,13 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  console.log("MAP STATE TO PROPS", state.userReducer)
+  return {
+    user: state.userReducer.user,
+    fetching: state.userReducer.fetching,
+    fetched: state.userReducer.fetched,
+    redirectToReferrer: state.userReducer.redirectToReferrer
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
