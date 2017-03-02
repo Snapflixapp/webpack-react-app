@@ -68,8 +68,10 @@ class SignUpObject extends Component {
         <video src={this.state.src} ref='video' width={this.state.width} height={this.state.height} autoPlay />
         <canvas ref='canvas' width={this.state.width} height={this.state.height} />
         <div>
-          <input type='text' placeholder='username' ref='username' />
-          <button onClick={this.handlePicture}>Signup with picture</button>
+          <form>
+            <input type='text' placeholder='username' ref='username' required />
+            <button onClick={this.handlePicture}>Signup with picture</button>
+          </form>
         </div>
       </div>
     )
