@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { signInUser } from '../actions/UserAction'
-// import PictureObject from './signUpWithFace'
+import PictureObject from './signInWithFace'
 
 class SignIn extends Component {
   constructor (props) {
@@ -47,6 +47,7 @@ class SignIn extends Component {
       <div className={styles.container}>
         <h1>Sign in</h1>
         <h1>picture component will go here</h1>
+        <PictureObject />
         <form ref='info' onSubmit={this.handleSubmit}>
           <label>Username: </label>
           <br />
