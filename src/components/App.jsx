@@ -13,18 +13,21 @@ import VideoList from '../containers/VideoList'
 import VideoProfile from '../containers/VideoProfile'
 import { connect } from 'react-redux'
 
-const isAuthenticated = true
-
-const ProtectedRoute = ({ component, ...rest }) => (
-  <Route {...rest} render={props => (
-    isAuthenticated
-    ? (React.createElement(component, props))
-    : (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />)
-  )} />
-)
+// const isAuthenticated = this.props.isAuthenticated.isAuthenticated
+// console.log(isAuthenticated)
 
 class App extends Component {
   render () {
+    const isAuthenticated = this.props.isAuthenticated
+    console.log(isAuthenticated)
+
+    const ProtectedRoute = ({ component, ...rest }) => (
+      <Route {...rest} render={props => (
+        isAuthenticated
+        ? (React.createElement(component, props))
+        : (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />)
+      )} />
+    )
     return (
       <Router>
         <div className={styles.app}>
@@ -45,9 +48,9 @@ class App extends Component {
   }
 }
 
-const matStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
-
+    isAuthenticated: state.userReducer.isAuthenticated
   }
 }
 

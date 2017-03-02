@@ -5,10 +5,13 @@
 //   fetched: false,
 //   error: null
 // }
+import jwtDecode from 'jwt-decode'
 
 export default (state, action) => {
   if (typeof state === 'undefined') {
-    state = {}
+    state = {
+      isAuthenticated: false
+    }
   }
   switch (action.type) {
     case 'SIGN_UP_PENDING':
@@ -27,23 +30,23 @@ export default (state, action) => {
         fetched: true
       })
     case 'SIGN_IN_PENDING':
-    console.log("IN SIGN IN PENGIND")
       return Object.assign({}, state, {
         fetching: true
       })
     case 'SIGN_IN_REJECTED':
-    console.log("IN SIGN IN REJECTED")
       return Object.assign({}, state, {
         fetching: false,
         error: action.payload
       })
     case 'SIGN_IN_FULFILLED':
-    console.log("IN SIGN IN FULLFILL")
       return Object.assign({}, state, {
         user: action.payload.token,
         fetching: false,
         fetched: true,
-        redirectToReferrer: true
+        redirectToReferrer: true,
+        isAuthenticated: true,
+        decoded: jwtDecode(action.payload.token)
+// decoded.exp < new Date().getTime()
 
       })
     default:
