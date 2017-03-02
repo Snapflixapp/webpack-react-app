@@ -19,7 +19,6 @@ class VideoList extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <div className={styles.container}>
         {this.props.videos.map((video, index) => (

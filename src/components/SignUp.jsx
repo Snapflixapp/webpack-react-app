@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './SignUp.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { signUpUser } from '../actions/UserAction'
 import SignUpObject from './signUpWithFace'
 
@@ -42,6 +43,13 @@ class SignUp extends Component {
   }
 
   render () {
+    const redirectToReferrer = this.props.redirectToReferrer
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
+    if (redirectToReferrer) {
+      return (
+        <Redirect to={from} />
+      )
+    }
     return (
       <div className={styles.container}>
         <SignUpObject />
@@ -65,7 +73,10 @@ class SignUp extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer
+    user: state.userReducer.user,
+    fetching: state.userReducer.fetching,
+    fetched: state.userReducer.fetched,
+    redirectToReferrer: state.userReducer.redirectToReferrer
   }
 }
 

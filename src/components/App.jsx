@@ -11,19 +11,26 @@ import Upload from '../components/Upload'
 import NoMatch from '../components/NoMatch'
 import VideoList from '../containers/VideoList'
 import VideoProfile from '../containers/VideoProfile'
+import { connect } from 'react-redux'
 
-const isAuthenticated = true
+// const isAuthenticated = this.props.isAuthenticated.isAuthenticated
+// console.log(isAuthenticated)
 
-const ProtectedRoute = ({ component, ...rest }) => (
-  <Route {...rest} render={props => (
-    isAuthenticated
-    ? (React.createElement(component, props))
-    : (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />)
-  )} />
-)
+class App extends Component {
+  // componentWillMount () {
+  //   function verifyToken () {}
+  // }
 
-export default class App extends Component {
   render () {
+    const isAuthenticated = this.props.isAuthenticated
+    const ProtectedRoute = ({ component, ...rest }) => (
+      <Route {...rest} render={props => (
+        isAuthenticated || window.localStorage.getItem('snapflixtoken')
+        ? (React.createElement(component, props))
+        : (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />)
+        )
+      } />
+    )
     return (
       <Router>
         <div className={styles.app}>
@@ -43,3 +50,11 @@ export default class App extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.userReducer.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps)(App)
