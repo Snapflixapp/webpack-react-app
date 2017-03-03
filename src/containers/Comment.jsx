@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import styles from './Comment.css'
 import io from 'socket.io-client'
-import jwtDecode from 'jwt-decode'
 import { saveComment } from '../actions/CommentAction'
 
 class CommentForm extends Component {

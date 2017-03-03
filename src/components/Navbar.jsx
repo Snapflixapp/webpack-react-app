@@ -1,4 +1,4 @@
-import React, { Component }from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -17,7 +17,7 @@ class Navbar extends Component {
   }
 
   render () {
-    return(
+    return (
       <div className={styles.nav}>
         <div className={styles.container}>
           <h1 className={styles.title}><Link to='/'>SNAPFLIX</Link></h1>

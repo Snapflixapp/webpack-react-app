@@ -15,7 +15,6 @@ export function signUpUser (newUserInfo) {
     })
     .then((response) => {
       window.localStorage.setItem('snapflixtoken', response.data.token)
-      console.log('testing sign up', response)
       return response.data
     })
     .catch((err) => {
@@ -34,7 +33,6 @@ export function signInUser (userInfo) {
     })
   .then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
-    console.log('testing sign in', response)
     return response.data
   })
   .catch((err) => {
@@ -44,7 +42,6 @@ export function signInUser (userInfo) {
 }
 
 export function faceSignInUser (userInfo) {
-  console.log('INSIDE FACE SIGN IN USER', userInfo)
   return {
     type: 'SIGN_IN_WITH_FACE',
     payload: axios({
@@ -67,7 +64,6 @@ export function faceSignInUser (userInfo) {
 }
 
 export function signOut () {
-  console.log('user signed out!!!!')
   window.localStorage.removeItem('snapflixtoken')
   return {
     type: 'SIGN_OUT_USER',
