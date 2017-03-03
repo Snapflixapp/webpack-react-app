@@ -44,6 +44,22 @@ export default (state, action) => {
         isAuthenticated: true,
         decoded: jwtDecode(action.payload.token)
       })
+    case 'SIGN_IN_WITH_FACE_FULFILLED':
+      return Object.assign({}, state, {
+        user: action.payload.token,
+        fetching: false,
+        fetched: true,
+        redirectToReferrer: true,
+        isAuthenticated: true,
+        decoded: jwtDecode(action.payload.token)
+      })
+    case 'SIGN_OUT_USER':
+      return Object.assign({}, state, {
+        user: '',
+        redirectToReferrer: false,
+        isAuthenticated: false,
+        decoded: ''
+      })
     default:
       return state
   }
