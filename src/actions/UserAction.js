@@ -3,6 +3,7 @@
 'use strict'
 
 import axios from 'axios'
+import uuid from 'uuid'
 
 export function signUpUser (newUserInfo) {
   return {
@@ -14,7 +15,6 @@ export function signUpUser (newUserInfo) {
     })
     .then((response) => {
       window.localStorage.setItem('snapflixtoken', response.data.token)
-      console.log('testing sign up', response)
       return response.data
     })
     .catch((err) => {
@@ -33,11 +33,40 @@ export function signInUser (userInfo) {
     })
   .then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
-    console.log('testing sign in', response)
     return response.data
   })
   .catch((err) => {
     console.log('SIGN IN USER ERR: ', err)
   })
+  }
+}
+
+export function faceSignInUser (userInfo) {
+  return {
+    type: 'SIGN_IN_WITH_FACE',
+    payload: axios({
+      method: 'POST',
+      url: __API__ + '/auth/faceSignIn',
+      data: {
+        id: uuid.v4(),
+        username: userInfo
+      }
+    })
+  .then((response) => {
+    window.localStorage.setItem('snapflixtoken', response.data.token)
+    console.log('testing face sign in', response)
+    return response.data
+  })
+  .catch((err) => {
+    console.log('SIGN IN USER ERR: ', err)
+  })
+  }
+}
+
+export function signOut () {
+  window.localStorage.removeItem('snapflixtoken')
+  return {
+    type: 'SIGN_OUT_USER',
+    payload: 'signedout'
   }
 }

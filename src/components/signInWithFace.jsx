@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { faceSignInUser } from '../actions/UserAction'
 import Kairos from 'kairos-api'
 const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
@@ -41,7 +44,9 @@ class PictureObject extends Component {
       }
       client.recognize(params)
       .then(function (data) {
-        console.log('You were enrolled in snapflix gallery, you rock', data)
+        // console.log('You were enrolled in snapflix gallery, you rock', data.body.images[0].transaction.subject_id)
+        const userName = data.body.images[0].transaction.subject_id
+        context.props.faceSignInUser(userName)
       })
       .catch(function (err) {
         console.log('there was an error', err)
@@ -65,4 +70,11 @@ class PictureObject extends Component {
     )
   }
 };
-export default PictureObject
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    faceSignInUser: faceSignInUser
+  }, dispatch)
+}
+
+export default connect(mapDispatchToProps)(PictureObject)
