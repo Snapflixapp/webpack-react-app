@@ -1,33 +1,35 @@
 import React, { Component } from 'react'
 import styles from './Comment.css'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { addComment } from '../actions/CommentAction'
 
 class CommentForm extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      author: '',
-      comment: ''
-    }
+
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleSubmit (e) {
     e.preventDefault()
-    const author = this.refs.author.value + ':'
-    const comment = this.refs.comment.value
-    this.setState({
-      author,
-      comment
-    })
+    const commentObj = {
+      oldComments: this.props.comments,
+      comment: this.refs.comment.value
+    }
+    this.props.addComment(commentObj)
     this.refs.CommentForm.reset()
   }
 
   render () {
     return (
       <div className={styles.inputs}>
-        <div><strong>{this.state.author}</strong>{this.state.comment}</div>
+        {this.props.comments.map((comment, index) => (
+          <div key={index} >
+            <p>{this.props.user + ': '}</p>
+            <p>{comment}</p>
+          </div>
+        ))}
         <form ref='CommentForm'>
-          <label>Author</label>
-          <input type='text' ref='author' placeholder='Author' />
           <label>Comment</label>
           <input type='text' ref='comment' placeholder='Comment' />
           <button type='submit' onClick={this.handleSubmit} >Submit</button>
@@ -37,5 +39,17 @@ class CommentForm extends Component {
   }
 }
 
-export default CommentForm
+const mapStateToProps = (state) => {
+  return {
+    user: state.commentReducer.user,
+    comments: state.commentReducer.comments
+  }
+}
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    addComment: addComment
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)

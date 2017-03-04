@@ -3,9 +3,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import styles from './Comment.css'
+import styles from './Message.css'
 import io from 'socket.io-client'
-import { saveComment } from '../actions/CommentAction'
+import { saveComment } from '../actions/MessageAction'
 
 class CommentForm extends Component {
   constructor (props) {

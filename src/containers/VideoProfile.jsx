@@ -12,7 +12,6 @@ class VideoProfile extends Component {
   render () {
     return (
       <div className={styles.container}>
-        {console.log('looking for props', this.props.activeVideo)}
         <div>
           <div>
             <VideoEntry video={this.props.activeVideo} />
