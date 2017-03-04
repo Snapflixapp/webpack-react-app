@@ -3,7 +3,6 @@
 'use strict'
 
 import axios from 'axios'
-import uuid from 'uuid'
 
 export function signUpUser (newUserInfo) {
   return {
@@ -46,15 +45,14 @@ export function faceSignInUser (userInfo) {
     type: 'SIGN_IN_WITH_FACE',
     payload: axios({
       method: 'POST',
-      url: __API__ + '/auth/faceSignIn',
+      url: __API__ + '/faceAuth',
       data: {
-        id: uuid.v4(),
         username: userInfo
       }
     })
   .then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
-    console.log('testing face sign in', response)
+    console.log('testing face sign in', response.data)
     return response.data
   })
   .catch((err) => {

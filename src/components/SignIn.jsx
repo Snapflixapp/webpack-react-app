@@ -43,6 +43,7 @@ class SignIn extends Component {
   }
 
   render () {
+    console.log(this.props)
     const redirectToReferrer = this.props.redirectToReferrer
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     if (redirectToReferrer) {
