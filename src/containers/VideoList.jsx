@@ -14,7 +14,6 @@ class VideoList extends Component {
   }
 
   handleVideoClick (video) {
-    console.log('video clicked', video)
     this.props.selectVideo(video)
   }
 
