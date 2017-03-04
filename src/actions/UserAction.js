@@ -3,7 +3,6 @@
 'use strict'
 
 import axios from 'axios'
-import uuid from 'uuid'
 
 export function signUpUser (newUserInfo) {
   return {
@@ -53,8 +52,8 @@ export function faceSignInUser (userInfo) {
     })
   .then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
-    console.log('testing face sign in', response)
-    return response.data.token
+    console.log('testing face sign in', response.data)
+    return response.data
   })
   .catch((err) => {
     console.log('SIGN IN USER ERR: ', err)

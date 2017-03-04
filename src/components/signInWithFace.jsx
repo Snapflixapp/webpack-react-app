@@ -46,7 +46,9 @@ class PictureObject extends Component {
       .then(function (data) {
         // console.log('You were enrolled in snapflix gallery, you rock', data.body.images[0].transaction.subject_id)
         const userName = data.body.images[0].transaction.subject_id
-        context.props.faceSignInUser(userName)
+        if (userName.length) {
+          context.props.faceSignInUser(userName)
+        }
       })
       .catch(function (err) {
         console.log('there was an error', err)
@@ -71,10 +73,14 @@ class PictureObject extends Component {
   }
 };
 
+const mapStateToProps = (state) => {
+  return {}
+}
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     faceSignInUser: faceSignInUser
   }, dispatch)
 }
 
-export default connect(mapDispatchToProps)(PictureObject)
+export default connect(mapStateToProps, mapDispatchToProps)(PictureObject)
