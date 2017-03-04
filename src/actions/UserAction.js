@@ -46,16 +46,15 @@ export function faceSignInUser (userInfo) {
     type: 'SIGN_IN_WITH_FACE',
     payload: axios({
       method: 'POST',
-      url: __API__ + '/auth/faceSignIn',
+      url: __API__ + '/faceAuth',
       data: {
-        id: uuid.v4(),
         username: userInfo
       }
     })
   .then((response) => {
     window.localStorage.setItem('snapflixtoken', response.data.token)
     console.log('testing face sign in', response)
-    return response.data
+    return response.data.token
   })
   .catch((err) => {
     console.log('SIGN IN USER ERR: ', err)
