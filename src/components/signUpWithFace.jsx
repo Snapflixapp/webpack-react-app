@@ -37,26 +37,26 @@ class SignUpObject extends Component {
       let video = context.refs.video
       let picture = context.refs.canvas
       let username = context.refs.username.value
-      picture.getContext('2d')
-      .drawImage(video, 0, 0)
-      let imgData = picture.toDataURL('img/png')
-      imgData = imgData.replace('data:image/png;base64,', '')
-      let params = {
-        image: imgData,
-        subject_id: username,
-        gallery_name: 'snapflix'
+      if (username.length) {
+        picture.getContext('2d')
+        .drawImage(video, 0, 0)
+        let imgData = picture.toDataURL('img/png')
+        imgData = imgData.replace('data:image/png;base64,', '')
+        let params = {
+          image: imgData,
+          subject_id: username,
+          gallery_name: 'snapflix'
+        }
+        client.enroll(params)
+        .then(function (data) {
+          context.props.faceSignInUser(username)
+        })
+        .catch(function (err) {
+          console.log('there was an error', err)
+        })
+      } else {
+        window.alert('username is required')
       }
-      client.enroll(params)
-      .then(function (data) {
-        // let opts = data.body.images[0].transaction
-        // will redirect to upload or comment page on log in
-        // console.log(data)
-        // console.log('You were enrolled in ' + opts.gallery_name + ' with the username ' + opts.subject_id)
-        context.props.faceSignInUser(username)
-      })
-      .catch(function (err) {
-        console.log('there was an error', err)
-      })
     }, 2000)
   }
   updateCanvas () {
