@@ -3,7 +3,7 @@
 'use strict'
 
 import axios from 'axios'
-import { stringify } from 'qs'
+import { get } from 'lodash'
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
@@ -18,23 +18,16 @@ export function captureUserMedia (callback) {
 const getSignedUrl = (file) => {
   const token = window.localStorage.getItem('snapflixtoken')
 
-  const headers = {}
-  // headers['Content-Type'] = 'application/json'
-  headers['Authorization'] = 'Bearer ' + token
+  axios.defaults.baseURL = __API__
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 
-  const params = {}
-  params['fileName'] = file.title
-  params['contentType'] = file.type
-
-  return axios({
-    url: '/s3/sign',
-    baseURL: __API__,
-    headers: headers,
-    params: params,
-    paramsSerializer: function (params) {
-      return stringify(params, {arrayFormat: 'brackets'})
-    }
-  })
+  return axios.post(`/graphql?query=
+    mutation {
+      createVideo(title: "${file.title}") {
+        id
+        signedUrl
+      }
+    }`)
   .then(r => r.data)
   .catch((e) => console.log('Error occured. Cannot get signedUrl from AWS: ', e))
 }
@@ -46,9 +39,12 @@ export function S3Upload (file) { // parameters: { type, data, id }
       headers['Content-Type'] = file.type
       headers['x-amz-acl'] = 'public-read'
 
+      axios.defaults.baseURL = ''
+      delete axios.defaults.headers.common['Authorization']
+      const signedUrl = get(response, ['data', 'createVideo', 'signedUrl'])
       axios({
         method: 'put',
-        url: response.signedUrl,
+        url: signedUrl,
         data: file.data,
         headers: headers
       })

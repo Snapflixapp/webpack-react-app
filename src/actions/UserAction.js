@@ -5,14 +5,16 @@
 import axios from 'axios'
 
 export function signUpUser (newUserInfo) {
+  console.log('newUserInfo: ', newUserInfo)
   return {
     type: 'SIGN_UP',
     payload: axios({
       method: 'POST',
-      url: __API__ + '/auth/register',
+      url: __API__ + '/register',
       data: newUserInfo
     })
     .then((response) => {
+      console.log('response: ', response)
       window.localStorage.setItem('snapflixtoken', response.data.token)
       return response.data
     })
@@ -27,7 +29,7 @@ export function signInUser (userInfo) {
     type: 'SIGN_IN',
     payload: axios({
       method: 'POST',
-      url: __API__ + '/auth/login',
+      url: __API__ + '/login',
       data: userInfo
     })
   .then((response) => {
