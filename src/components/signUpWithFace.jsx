@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import Kairos from 'kairos-api'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { faceSignInUser } from '../actions/UserAction'
+
 const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 class SignUpObject extends Component {
@@ -33,25 +37,26 @@ class SignUpObject extends Component {
       let video = context.refs.video
       let picture = context.refs.canvas
       let username = context.refs.username.value
-      picture.getContext('2d')
-      .drawImage(video, 0, 0)
-      let imgData = picture.toDataURL('img/png')
-      imgData = imgData.replace('data:image/png;base64,', '')
-      let params = {
-        image: imgData,
-        subject_id: username,
-        gallery_name: 'snapflix'
+      if (username.length) {
+        picture.getContext('2d')
+        .drawImage(video, 0, 0)
+        let imgData = picture.toDataURL('img/png')
+        imgData = imgData.replace('data:image/png;base64,', '')
+        let params = {
+          image: imgData,
+          subject_id: username,
+          gallery_name: 'snapflix'
+        }
+        client.enroll(params)
+        .then(function (data) {
+          context.props.faceSignInUser(username)
+        })
+        .catch(function (err) {
+          console.log('there was an error', err)
+        })
+      } else {
+        window.alert('username is required')
       }
-      client.enroll(params)
-      .then(function (data) {
-        let opts = data.body.images[0].transaction
-        // will redirect to upload or comment page on log in
-        console.log(data)
-        console.log('You were enrolled in ' + opts.gallery_name + ' with the username ' + opts.subject_id)
-      })
-      .catch(function (err) {
-        console.log('there was an error', err)
-      })
     }, 2000)
   }
   updateCanvas () {
@@ -69,11 +74,22 @@ class SignUpObject extends Component {
         <div>
           <form>
             <input type='text' placeholder='username' ref='username' required />
-            <button onClick={this.handlePicture}>Signup with picture</button>
+            <button type='submit' onClick={this.handlePicture}>Signup with picture</button>
           </form>
         </div>
       </div>
     )
   }
 };
-export default SignUpObject
+
+const mapStateToProps = (state) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    faceSignInUser: faceSignInUser
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpObject)
