@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import Kairos from 'kairos-api'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { faceSignInUser } from '../actions/UserAction'
+
 const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 class SignUpObject extends Component {
@@ -44,10 +48,11 @@ class SignUpObject extends Component {
       }
       client.enroll(params)
       .then(function (data) {
-        let opts = data.body.images[0].transaction
+        // let opts = data.body.images[0].transaction
         // will redirect to upload or comment page on log in
-        console.log(data)
-        console.log('You were enrolled in ' + opts.gallery_name + ' with the username ' + opts.subject_id)
+        // console.log(data)
+        // console.log('You were enrolled in ' + opts.gallery_name + ' with the username ' + opts.subject_id)
+        context.props.faceSignInUser(username)
       })
       .catch(function (err) {
         console.log('there was an error', err)
@@ -76,4 +81,15 @@ class SignUpObject extends Component {
     )
   }
 };
-export default SignUpObject
+
+const mapStateToProps = (state) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    faceSignInUser: faceSignInUser
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpObject)
