@@ -74,7 +74,7 @@ class SignUpObject extends Component {
         <div>
           <form>
             <input type='text' placeholder='username' ref='username' required />
-            <button onClick={this.handlePicture}>Signup with picture</button>
+            <button type='submit' onClick={this.handlePicture}>Signup with picture</button>
           </form>
         </div>
       </div>
