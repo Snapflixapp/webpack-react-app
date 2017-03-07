@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 
 import styles from './Home.css'
 
-import VideoList from '../containers/VideoList'
+import VideoList from '../components/VideoList'
 
 const GetVideosQuery = gql`
   query GetVideosQuery {
@@ -14,6 +14,9 @@ const GetVideosQuery = gql`
       url
       user {
         username
+        comments {
+          content
+        }
       }
     }
   }
