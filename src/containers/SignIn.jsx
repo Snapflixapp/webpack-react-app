@@ -23,7 +23,8 @@ class SignInFormContainer extends Component {
   handleSubmit (e) {
     this.props.mutate({ variables: e })
     .then((response) => {
-      if (response.data.signIn.errors.length <= 0) {
+      console.log('Response: ', response)
+      if (!response.data.signIn.error) {
         this.props.signInDispatcher(response.data.signIn.token)
         this.props.redirectToReferrer = true
       } else {
@@ -61,10 +62,7 @@ const signInMutation = gql`
   mutation signIn($username: String!, $password: String!) {
     signIn(username: $username, password: $password) {
       token,
-      errors {
-        key
-        value
-      }
+      errors
     }
   }
 `

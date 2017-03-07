@@ -7,7 +7,7 @@ import styles from './Home.css'
 import VideoList from '../components/VideoList'
 
 const GetVideosQuery = gql`
-  query GetVideosQuery {
+  query GetVideos {
     videos {
       id
       title
