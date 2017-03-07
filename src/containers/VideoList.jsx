@@ -1,29 +1,40 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './VideoList.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+
 import VideoEntry from './VideoEntry'
-import { selectVideo } from '../actions/VideoAction'
 
 class VideoList extends Component {
   constructor (props) {
     super(props)
 
-    this.handleVideoClick = this.handleVideoClick.bind(this)
+    this.state = {
+      videos: []
+    }
+
+    // this.handleVideoClick = this.handleVideoClick.bind(this)
+  }
+
+  componentWillReceiveProps (newProps) {
+    const videos = newProps.data.videos
+
+    this.setState({
+      videos: videos
+    })
   }
 
   handleVideoClick (video) {
-    this.props.selectVideo(video)
+    // TODO: handle click...
+    // this.props.selectVideo(video)
   }
 
   render () {
     return (
       <div className={styles.container}>
-        {this.props.videos.map((video, index) => (
-          <div key={index + 1 * 0.789} className={styles.item}>
-            <Link to={`/video/${index}`} key={index + 1 * 0.345} onClick={() => (this.handleVideoClick(video))}>
-              <VideoEntry video={video} key={index} />
+        {this.state.videos.map((video) => (
+          <div key={video.id} className={styles.item}>
+            <Link to={`/video/${video.id}`} onClick={() => (this.handleVideoClick(video))}>
+              <VideoEntry video={video} />
             </Link>
           </div>
         ))
@@ -33,17 +44,4 @@ class VideoList extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    videos: state.videoData,
-    user: state.userReducer
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    selectVideo: selectVideo
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoList)
+export default VideoList

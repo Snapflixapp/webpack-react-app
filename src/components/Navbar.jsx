@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { signOut } from '../actions/UserAction'
+// import { bindActionCreators } from 'redux'
+// import { connect } from 'react-redux'
+// import { signOut } from '../actions/UserAction'
 import styles from './Navbar.css'
 
 class Navbar extends Component {
@@ -32,14 +32,15 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {}
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    signOut: signOut
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+// const mapStateToProps = (state) => {
+//   return {}
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//     signOut: signOut
+//   }, dispatch)
+// }
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default Navbar

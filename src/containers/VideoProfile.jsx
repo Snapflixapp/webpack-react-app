@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import VideoEntry from './VideoEntry'
-import CommentForm from '../components/Comment'
+// import CommentForm from '../components/Comment'
 import styles from './VideoProfile.css'
-import LikeVideo from '../components/LikeVideo'
+// import LikeVideo from '../components/LikeVideo'
 
 class VideoProfile extends Component {
   // constructor (props) {
@@ -18,8 +18,8 @@ class VideoProfile extends Component {
             <VideoEntry video={this.props.activeVideo} />
           </div>
           <div>
-            <LikeVideo />
-            <CommentForm {...this.props} />
+            {/* <LikeVideo /> */}
+            {/* <CommentForm {...this.props} /> */}
           </div>
         </div>
       </div>
@@ -27,10 +27,11 @@ class VideoProfile extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    activeVideo: state.activeVideoReducer
-  }
-}
-
-export default connect(mapStateToProps)(VideoProfile)
+// const mapStateToProps = (state) => {
+//   return {
+//     activeVideo: state.activeVideoReducer
+//   }
+// }
+//
+// export default connect(mapStateToProps)(VideoProfile)
+export default VideoProfile

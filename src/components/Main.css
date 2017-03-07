@@ -1,5 +1,7 @@
 .main {
   display: flex;
   width: 80%;
-  margin: auto;
+  margin: 0 auto;
+  padding-top: 60px;
+  height: 100%;
 }

@@ -1,0 +1,33 @@
+import React, { Component } from 'react'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
+import styles from './Home.css'
+
+import VideoList from '../containers/VideoList'
+
+const GetVideosQuery = gql`
+  query GetVideosQuery {
+    videos {
+      id
+      title
+      url
+      user {
+        username
+      }
+    }
+  }
+`
+const VideosListWithData = graphql(GetVideosQuery)(VideoList)
+
+class Home extends Component {
+  render () {
+    return (
+      <div className={styles.home}>
+        <VideosListWithData />
+      </div>
+    )
+  }
+}
+
+export default Home

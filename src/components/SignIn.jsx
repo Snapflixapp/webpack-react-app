@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import styles from './SignIn.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+// import { bindActionCreators } from 'redux'
+// import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
-import { signInUser } from '../actions/UserAction'
-import PictureObject from './signInWithFace'
+// import { signInUser } from '../actions/UserAction'
+// import PictureObject from './signInWithFace'
 
 class SignIn extends Component {
   constructor (props) {
@@ -55,7 +55,7 @@ class SignIn extends Component {
       <div className={styles.container}>
         <h1>Sign in</h1>
         <h1>picture component will go here</h1>
-        <PictureObject />
+        {/* <PictureObject /> */}
         <form ref='info' onSubmit={this.handleSubmit}>
           <label>Username: </label>
           <br />
@@ -76,19 +76,21 @@ class SignIn extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.userReducer.user,
-    fetching: state.userReducer.fetching,
-    fetched: state.userReducer.fetched,
-    redirectToReferrer: state.userReducer.redirectToReferrer
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     user: state.userReducer.user,
+//     fetching: state.userReducer.fetching,
+//     fetched: state.userReducer.fetched,
+//     redirectToReferrer: state.userReducer.redirectToReferrer
+//   }
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//     signInUser: signInUser
+//   }, dispatch)
+// }
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    signInUser: signInUser
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default SignIn

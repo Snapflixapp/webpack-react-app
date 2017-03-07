@@ -85,7 +85,7 @@ export default class Upload extends Component {
   render () {
     return (
 
-      <div className={styles.main}>
+      <div>
         <VideoStream src={this.state.src} ref='video' width={this.state.width} height={this.state.height} />
         {this.state.uploading ? <div>Uploading...</div> : null}
         <br />

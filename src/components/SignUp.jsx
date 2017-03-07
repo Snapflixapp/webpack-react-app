@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import styles from './SignUp.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+// import { bindActionCreators } from 'redux'
+// import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { signUpUser } from '../actions/UserAction'
-import SignUpObject from './signUpWithFace'
+// import { signUpUser } from '../actions/UserAction'
+// import SignUpObject from './signUpWithFace'
 
 class SignUp extends Component {
   constructor (props) {
@@ -52,7 +52,7 @@ class SignUp extends Component {
     }
     return (
       <div className={styles.container}>
-        <SignUpObject />
+        {/* <SignUpObject /> */}
         <h1>Sign up</h1>
         <form ref='info' onSubmit={this.handleSubmit}>
           <label>Username: </label>
@@ -71,19 +71,21 @@ class SignUp extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.userReducer.user,
-    fetching: state.userReducer.fetching,
-    fetched: state.userReducer.fetched,
-    redirectToReferrer: state.userReducer.redirectToReferrer
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     user: state.userReducer.user,
+//     fetching: state.userReducer.fetching,
+//     fetched: state.userReducer.fetched,
+//     redirectToReferrer: state.userReducer.redirectToReferrer
+//   }
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//     signUpUser: signUpUser
+//   }, dispatch)
+// }
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    signUpUser: signUpUser
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default SignUp

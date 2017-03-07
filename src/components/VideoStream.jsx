@@ -8,7 +8,7 @@ export default class VideoStream extends Component {
   render () {
     return (
 
-      <div className={styles.main}>
+      <div>
         <video src={this.props.src} width={this.props.width} height={this.props.height} autoPlay />
 
       </div>
