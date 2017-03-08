@@ -23,21 +23,21 @@ class SignInFormContainer extends Component {
 
   handleSubmit (e) {
     this.props.mutate({ variables: e })
-    .then((response) => {
-      if (response.data.signIn.errors.length === 0) {
-        this.props.signInDispatcher(response.data.signIn.token)
-        this.setState({
-          redirectToReferrer: true
-        })
-      } else {
-        this.setState({
-          errors: response.data.signIn.errors
-        })
-      }
-    })
-    .catch((err) => {
-      console.error(err)
-    })
+      .then((response) => {
+        if (response.data.signIn.errors.length === 0) {
+          this.props.signInDispatcher(response.data.signIn.token)
+          this.setState({
+            redirectToReferrer: true
+          })
+        } else {
+          this.setState({
+            errors: response.data.signIn.errors
+          })
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   render () {

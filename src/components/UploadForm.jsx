@@ -12,6 +12,7 @@ export default class UploadForm extends Component {
 
     this.state = {
       src: null,
+      stream: null,
       width: 300,
       height: 300,
       uploadSuccess: null,
@@ -34,6 +35,10 @@ export default class UploadForm extends Component {
     this.requestUserMedia()
   }
 
+  componentWillUnmount () {
+    this.state.stream.stop()
+  }
+
   handleTitle (e) {
     this.setState({
       title: e.target.value
@@ -43,20 +48,23 @@ export default class UploadForm extends Component {
   requestUserMedia () {
     console.log('requestUserMedia')
     captureUserMedia((stream) => {
-      this.setState({ src: window.URL.createObjectURL(stream) })
+      this.setState({
+        src: window.URL.createObjectURL(stream),
+        stream
+      })
       console.log('setting state', this.state)
     })
   }
 
   startRecord () {
     console.log('Starting recording')
-    captureUserMedia((stream) => {
-      this.state.recordVideo = RecordRTC(stream, { type: 'video' })
-      this.state.recordVideo.startRecording()
-    })
+    this.state.recordVideo = RecordRTC(this.state.stream, { type: 'video' })
+    this.state.recordVideo.startRecording()
 
     setTimeout(() => {
       console.log('Finished recording')
+      // this.state.stream.getTracks().forEach(track => track.stop())
+      this.state.stream.stop()
       this.stopRecord()
     }, 4000)
   }

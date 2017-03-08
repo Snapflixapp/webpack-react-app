@@ -4,8 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import styles from './SignUpForm.css'
 import { Link } from 'react-router-dom'
 
-// import PictureObject from './SignUpWithFace'
-// <PictureObject />
+import PictureObject from './SignUpWithFace'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => {
   const hasError = (touched && error) ? 'has-danger' : ''
@@ -37,7 +36,10 @@ const SignUpForm = ({ handleSubmit, errors }) => {
         <button type='submit' className='btn btn-primary'>Sign up</button>
       </form>
       <div>
-        <Link to='/signup'>Already have an account? Sign in</Link>
+        <Link to='/signin'>Already have an account? Sign in</Link>
+      </div>
+      <div>
+        <PictureObject />
       </div>
     </div>
   )
