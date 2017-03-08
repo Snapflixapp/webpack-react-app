@@ -7,13 +7,14 @@ import { graphql } from 'react-apollo'
 import SignInForm from '../components/SignInForm'
 import { signIn } from '../actions'
 
-import styles from './SignIn.css'
+import styles from './SignInContainer.css'
 
 class SignInFormContainer extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
+      redirectToReferrer: false,
       errors: []
     }
 
@@ -23,10 +24,11 @@ class SignInFormContainer extends Component {
   handleSubmit (e) {
     this.props.mutate({ variables: e })
     .then((response) => {
-      console.log('Response: ', response)
-      if (!response.data.signIn.error) {
+      if (response.data.signIn.errors.length === 0) {
         this.props.signInDispatcher(response.data.signIn.token)
-        this.props.redirectToReferrer = true
+        this.setState({
+          redirectToReferrer: true
+        })
       } else {
         this.setState({
           errors: response.data.signIn.errors
@@ -34,12 +36,12 @@ class SignInFormContainer extends Component {
       }
     })
     .catch((err) => {
-      console.log(err)
+      console.error(err)
     })
   }
 
   render () {
-    const redirectToReferrer = this.props.redirectToReferrer
+    const redirectToReferrer = this.state.redirectToReferrer
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     if (redirectToReferrer) {
       return (

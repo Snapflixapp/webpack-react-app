@@ -18,3 +18,25 @@
   transform: translate(0,-20px);
   transition-delay: 0s !important;
 }
+
+.profile {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  /*background-color: salmon;*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+}
+
+.video {
+  /*margin-top: -30px;*/
+  /*padding: -10px;*/
+  /*width: 70%;*/
+  /*height: 130%;*/
+}
+
+.comments {
+  width: 40%;
+  /*background-color: rebeccapurple;*/
+}

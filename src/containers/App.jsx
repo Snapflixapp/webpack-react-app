@@ -5,28 +5,33 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import styles from './App.css'
 
 import Main from '../components/Main'
-import NavBar from '../components/Navbar'
-import SignIn from '../containers/SignIn'
-import SignUp from '../components/SignUp'
-import Upload from '../components/Upload'
+import NavContainer from '../containers/NavContainer'
+import SignIn from '../containers/SignInContainer'
+import SignUp from '../containers/SignUpContainer'
+import Upload from '../containers/UploadContainer'
 import NoMatch from '../components/NoMatch'
-import Home from '../containers/Home'
+import Home from '../containers/HomeContainer'
 import VideoProfile from '../components/VideoProfile'
 
 const App = ({ authenticated }) => {
   const ProtectedRoute = ({ component, ...rest }) => (
     <Route {...rest} render={props => (
       authenticated
-      ? (React.createElement(component, props))
-      : (<Redirect to={{ pathname: '/signin', state: { from: props.location } }} />)
-      )
-    } />
+      ? (React.createElement(component, props)
+      ) : (
+        <Redirect to={{
+          pathname: '/signin',
+          state: {
+            from: props.location
+          }}}
+        />)
+    )} />
   )
 
   return (
     <Router>
       <div className={styles.app}>
-        <NavBar />
+        <NavContainer />
         <Main>
           <Switch>
             <Route exact path='/' component={Home} />

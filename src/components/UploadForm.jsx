@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
-import styles from './Upload.css'
-import { captureUserMedia, S3Upload } from '../utils'
+import styles from './UploadForm.css'
+import { captureUserMedia } from '../utils'
 import VideoStream from './VideoStream'
 import RecordRTC from 'recordrtc'
 
-// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
-// navigator.msGetUserMedia || navigator.oGetUserMedia
-
 const hasGetUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
-export default class Upload extends Component {
+export default class UploadForm extends Component {
   constructor (props) {
     super(props)
+
     this.state = {
       src: null,
       width: 300,
@@ -65,20 +63,27 @@ export default class Upload extends Component {
 
   stopRecord () {
     this.state.recordVideo.stopRecording(() => {
-      let params = {
-        type: 'video/webm',
-        data: this.state.recordVideo.blob,
-        title: this.state.title || 'Untitled'
+      const video = {
+        title: this.state.title,
+        contentType: 'video/webm',
+        data: this.state.recordVideo.blob
       }
 
-      this.setState({ uploading: true })
-
-      S3Upload(params)
-      .then(success => {
-        console.log('S3 upload successful')
-        this.setState({ uploadSuccess: true, uploading: false })
-      })
-      .catch(e => console.log(e))
+      this.props.onSubmit(video)
+      // let params = {
+      //   type: 'video/webm',
+      //   data: this.state.recordVideo.blob,
+      //   title: this.state.title || 'Untitled'
+      // }
+      //
+      // this.setState({ uploading: true })
+      //
+      // S3Upload(params)
+      // .then(success => {
+      //   console.log('S3 upload successful')
+      //   this.setState({ uploadSuccess: true, uploading: false })
+      // })
+      // .catch(e => console.log(e))
     })
   }
 

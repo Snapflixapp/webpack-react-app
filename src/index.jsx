@@ -21,7 +21,7 @@ networkInterface.use([{
       req.options.headers = {}
     }
 
-    req.options.headers.authorization = token ? `Bearer ${token}` : null
+    req.options.headers.authorization = token || null
     next()
   }
 }])
