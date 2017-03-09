@@ -8,14 +8,14 @@ const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
-export function captureUserMedia (callback) {
+const captureUserMedia = (callback) => {
   var params = { audio: false, video: true }
   navigator.getUserMedia(params, callback, (error) => {
     console.error(JSON.stringify(error))
   })
 }
 
-export function registerKairos (params) {
+const register = (params) => {
   return client.enroll(params)
   .then(function (data) {
     return data
@@ -25,7 +25,21 @@ export function registerKairos (params) {
   })
 }
 
-export function S3Upload (video) { // parameters: { type, data, id }
+const recognize = (params) => {
+  return client.recognize(params)
+  .then(function (data) {
+    console.log('You were enrolled in snapflix gallery, you rock', data.body.images[0].transaction.subject_id)
+    const username = data.body.images[0].transaction.subject_id
+    if (username.length) {
+      return username
+    }
+  })
+  .catch(function (err) {
+    console.log('there was an error', err)
+  })
+}
+
+const S3Upload = (video) => { // parameters: { type, data, id }
   console.log('Video: ', video)
   const headers = {}
   headers['Content-Type'] = video.type
@@ -38,3 +52,5 @@ export function S3Upload (video) { // parameters: { type, data, id }
     headers: headers
   })
 }
+
+export default { captureUserMedia, register, recognize, S3Upload }

@@ -4,7 +4,7 @@ import { Redirect, Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { signIn } from '../actions'
-import { registerKairos } from '../utils'
+import { register } from '../utils'
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
@@ -72,7 +72,7 @@ class SignUpContainer extends Component {
           }
 
           const context = this
-          registerKairos(params)
+          register(params)
           .then(function (data) {
             context.setState({
               redirectToReferrer: true
@@ -80,6 +80,13 @@ class SignUpContainer extends Component {
           })
           .catch(function (err) {
             console.log('There was an error registering with Kairos', err)
+            this.props.kairosFailMutation({ variables: context.state.username })
+            .then((response) => {
+              console.log('Rolled database back.')
+            })
+            .catch((err) => {
+              console.log('Could not delete user from snapflix: ', err)
+            })
           })
         } else {
           this.setState({
@@ -169,17 +176,15 @@ const signUpMutation = gql`
   }
 `
 
-const kairosSignUpMutation = gql`
-  mutation kairosSignIn($username: String!) {
-    kairosSignIn(username: $username) {
-      token,
-      errors
+const kairosFailureMutation = gql`
+  mutation kairosFailure($username: String!) {
+    kairosFailure(username: $username) {
+      username
     }
   }
 `
-
 const SignUpWithData = graphql(signUpMutation, {name: 'signUpMutation'})(
-  graphql(kairosSignUpMutation, {name: 'kairosSignUpMutation'})(SignUpContainer)
+  graphql(kairosFailureMutation, {name: 'kairosFailMutation'})(SignUpContainer)
 )
 
 const mapDispatchToProps = (dispatch) => ({

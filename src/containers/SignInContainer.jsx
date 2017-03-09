@@ -3,77 +3,211 @@ import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
-
-import SignInForm from '../components/SignInForm'
 import { signIn } from '../actions'
+import { recognize } from '../utils'
 
-import styles from './SignInContainer.css'
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
-class SignInFormContainer extends Component {
+import styles from './SignUpContainer.css'
+
+class SignUpContainer extends Component {
   constructor (props) {
     super(props)
-    console.log('SignInFormContainer props: ', props)
+
     this.state = {
+      username: '',
+      password: '',
+      imageData: '',
+      src: null,
       redirectToReferrer: false,
-      errors: []
+      faceAuth: false
     }
 
+    this.handleVideo = this.handleVideo.bind(this)
+    this.handleError = this.handleError.bind(this)
+    this.handlePicture = this.handlePicture.bind(this)
+    this.updateCanvas = this.updateCanvas.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleUsername = this.handleUsername.bind(this)
+    this.handlePassword = this.handlePassword.bind(this)
+    this.toggleFaceAuth = this.toggleFaceAuth.bind(this)
+  }
+
+  componentDidMount () {
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia({video: true}, this.handleVideo, this.handleError)
+    }
+    this.updateCanvas()
+  }
+
+  toggleFaceAuth () {
+    this.setState({
+      faceAuth: !this.state.faceAuth
+    })
+  }
+
+  handleUsername (e) {
+    this.setState({
+      username: e.target.value
+    })
+  }
+
+  handlePassword (e) {
+    this.setState({
+      password: e.target.value
+    })
   }
 
   handleSubmit (e) {
-    this.props.mutate({ variables: e })
-      .then((response) => {
-        if (response.data.signIn.errors.length === 0) {
-          this.props.signInDispatcher(response.data.signIn.token)
-          this.setState({
-            redirectToReferrer: true
-          })
-        } else {
-          this.setState({
-            errors: response.data.signIn.errors
-          })
-        }
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    e.preventDefault()
+    console.log('Inside handle submit: ', e)
+
+    // if (this.state.username.length !== 0) {
+    //   this.handlePicture()
+    //
+    //   const params = {
+    //     image: this.state.imageData,
+    //     subject_id: this.state.username,
+    //     gallery_name: 'snapflix'
+    //   }
+    //
+    //   const context = this
+    //   recognize(params)
+    //   .then(function (data) {
+    //     context.setState({
+    //       redirectToReferrer: true
+    //     })
+    //   })
+    //
+    //   const newUserInfo = {
+    //     username: this.state.username,
+    //     password: this.state.password
+    //   }
+    //
+    //   this.props.signUpMutation({ variables: newUserInfo })
+    //   .then((response) => {
+    //     if (response.data.signUp.errors.length === 0) {
+    //       this.props.signInDispatcher(response.data.signUp.token)
+    //
+    //
+    //
+    //       const context = this
+    //
+    //       .catch(function (err) {
+    //         this.props.kairosFailMutation({ variables: context.state.username })
+    //         .then((response) => {
+    //           console.log('There was an error registering with Kairos', err)
+    //         })
+    //         .catch((err) => {
+    //           console.log('Could not delete user from snapflix: ', err)
+    //         })
+    //       })
+    //     } else {
+    //       this.setState({
+    //         errors: response.data.signUp.errors
+    //       })
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // }
+  }
+
+  handleVideo (stream) {
+    this.setState({
+      src: window.URL.createObjectURL(stream)
+    })
+  }
+
+  handlePicture () {
+    const video = this.refs.video
+    const picture = this.refs.canvas
+    picture.getContext('2d').drawImage(video, 0, 0)
+    let imgData = picture.toDataURL('img/png')
+    let imageData = imgData.replace('data:image/png;base64,', '')
+    console.log('Image data: ', imageData)
+    this.setState({
+      imageData: imageData
+    })
+  }
+
+  updateCanvas () {
+    const ctx = this.refs.canvas.getContext('2d')
+    ctx.fillRect(0, 0, 100, 100)
+  }
+
+  handleError () {
+    console.log('The browser cannot access the webcam')
   }
 
   render () {
     const redirectToReferrer = this.state.redirectToReferrer
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
     if (redirectToReferrer) {
       return (
-        <Redirect to={from} />
+        <Redirect to='/' />
       )
     }
 
+    const component = (this.state.faceAuth)
+    ? (
+      <div className={styles.kairosForm}>
+        <div>
+          <div>
+            <video src={this.state.src} ref='video' style={{width: '500px', height: '500px'}} autoPlay />
+            <canvas ref='canvas' style={{width: '200px', height: '200px'}} />
+          </div>
+        </div>
+
+      </div>
+      ) : (
+        <form ref='info' onSubmit={this.handleSubmit}>
+          <label>Username: </label>
+          <br />
+          <input className={styles.signUpInput} type='text' placeholder='Username' onChange={this.handleUsername} />
+          <br />
+          <label>Password: </label>
+          <br />
+          <input className={styles.signUpInput} type='password' placeholder='Password' onChange={this.handlePassword} />
+          <br />
+          <button className={styles.signUpButton} type='submit' onClick={this.handleSubmit}>Sign up</button>
+          <br />
+          <button className={styles.signUpButton} type='submit' >Sign up</button>
+        </form>
+      )
+
     return (
       <div className={styles.container}>
-        <h1>Sign in</h1>
-        <SignInForm
-          onSubmit={this.handleSubmit}
-          errors={this.state.errors}
-        />
+        <h1>Sign Up</h1>
+        {component}
         <div>
-          <Link to='/signup'>Don't have an account? Sign up</Link>
+          <Link to='/signin'>Already have an account? Sign in</Link>
         </div>
       </div>
     )
   }
 }
 
-const signInMutation = gql`
-  mutation signIn($username: String!, $password: String!) {
-    signIn(username: $username, password: $password) {
+const signUpMutation = gql`
+  mutation signUp($username: String!, $password: String!) {
+    signUp(username: $username, password: $password) {
       token,
       errors
     }
   }
 `
 
-const SignInWithData = graphql(signInMutation)(SignInFormContainer)
+const kairosFailureMutation = gql`
+  mutation kairosFailure($username: String!) {
+    kairosFailure(username: $username) {
+      username
+    }
+  }
+`
+
+const SignUpWithData = graphql(signUpMutation, {name: 'signUpMutation'})(
+  graphql(kairosFailureMutation, {name: 'kairosFailMutation'})(SignUpContainer)
+)
 
 const mapDispatchToProps = (dispatch) => ({
   signInDispatcher (token) {
@@ -81,9 +215,99 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-const SignInWithDataAndState = connect(
+const SignUpWithDataAndState = connect(
   null,
   mapDispatchToProps
-)(SignInWithData)
+)(SignUpWithData)
 
-export default SignInWithDataAndState
+export default SignUpWithDataAndState
+
+// import React, { Component } from 'react'
+// import { connect } from 'react-redux'
+// import { Redirect, Link } from 'react-router-dom'
+// import gql from 'graphql-tag'
+// import { graphql } from 'react-apollo'
+//
+// import SignInForm from '../components/SignInForm'
+// import { signIn } from '../actions'
+//
+// import styles from './SignInContainer.css'
+//
+// class SignInFormContainer extends Component {
+//   constructor (props) {
+//     super(props)
+//     console.log('SignInFormContainer props: ', props)
+//     this.state = {
+//       redirectToReferrer: false,
+//       errors: []
+//     }
+//
+//     this.handleSubmit = this.handleSubmit.bind(this)
+//   }
+//
+//   handleSubmit (e) {
+//     this.props.mutate({ variables: e })
+//       .then((response) => {
+//         if (response.data.signIn.errors.length === 0) {
+//           this.props.signInDispatcher(response.data.signIn.token)
+//           this.setState({
+//             redirectToReferrer: true
+//           })
+//         } else {
+//           this.setState({
+//             errors: response.data.signIn.errors
+//           })
+//         }
+//       })
+//       .catch((err) => {
+//         console.error(err)
+//       })
+//   }
+//
+//   render () {
+//     const redirectToReferrer = this.state.redirectToReferrer
+//     const { from } = this.props.location.state || { from: { pathname: '/' } }
+//     if (redirectToReferrer) {
+//       return (
+//         <Redirect to={from} />
+//       )
+//     }
+//
+//     return (
+//       <div className={styles.container}>
+//         <h1>Sign in</h1>
+//         <SignInForm
+//           onSubmit={this.handleSubmit}
+//           errors={this.state.errors}
+//         />
+//         <div>
+//           <Link to='/signup'>Don't have an account? Sign up</Link>
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+//
+// const signInMutation = gql`
+//   mutation signIn($username: String!, $password: String!) {
+//     signIn(username: $username, password: $password) {
+//       token,
+//       errors
+//     }
+//   }
+// `
+//
+// const SignInWithData = graphql(signInMutation)(SignInFormContainer)
+//
+// const mapDispatchToProps = (dispatch) => ({
+//   signInDispatcher (token) {
+//     dispatch(signIn(token))
+//   }
+// })
+//
+// const SignInWithDataAndState = connect(
+//   null,
+//   mapDispatchToProps
+// )(SignInWithData)
+//
+// export default SignInWithDataAndState
