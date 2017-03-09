@@ -1,57 +1,52 @@
-/* global __API__ */
+// /* global __API__ */
 
 'use strict'
 
 import axios from 'axios'
-import { stringify } from 'qs'
+import Kairos from 'kairos-api'
+const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
-export function captureUserMedia (callback) {
+const captureUserMedia = (callback) => {
   var params = { audio: false, video: true }
   navigator.getUserMedia(params, callback, (error) => {
-    console.log(JSON.stringify(error))
+    console.error(JSON.stringify(error))
   })
 }
 
-// handle S3 upload
-const getSignedUrl = (file) => {
-  const token = window.localStorage.getItem('snapflixtoken')
+const register = function (params) {
+  return client.enroll(params)
+  .then(function (data) {
+    return data
+  })
+  .catch(function (err) {
+    console.log('There was an error registering with Kairos', err)
+  })
+}
 
+const recognize = function (params) {
+  return client.recognize(params)
+  .then(function (data) {
+    return data
+  })
+  .catch(function (err) {
+    return err
+  })
+}
+
+const S3Upload = (video) => { // parameters: { type, data, id }
+  console.log('Video: ', video)
   const headers = {}
-  // headers['Content-Type'] = 'application/json'
-  headers['Authorization'] = 'Bearer ' + token
-
-  const params = {}
-  params['fileName'] = file.title
-  params['contentType'] = file.type
+  headers['Content-Type'] = video.type
+  headers['x-amz-acl'] = 'public-read'
 
   return axios({
-    url: '/s3/sign',
-    baseURL: __API__,
-    headers: headers,
-    params: params,
-    paramsSerializer: function (params) {
-      return stringify(params, {arrayFormat: 'brackets'})
-    }
+    method: 'put',
+    url: video.signedUrl,
+    data: video.data,
+    headers: headers
   })
-  .then(r => r.data)
-  .catch((e) => console.log('Error occured. Cannot get signedUrl from AWS: ', e))
 }
 
-export function S3Upload (file) { // parameters: { type, data, id }
-  return getSignedUrl(file)
-    .then((response) => {
-      const headers = {}
-      headers['Content-Type'] = file.type
-      headers['x-amz-acl'] = 'public-read'
-
-      axios({
-        method: 'put',
-        url: response.signedUrl,
-        data: file.data,
-        headers: headers
-      })
-    })
-    .catch(err => new Error('Error occured. Cannot upload data to AWS S3: ', err))
-}
+export { captureUserMedia, register, recognize, S3Upload }

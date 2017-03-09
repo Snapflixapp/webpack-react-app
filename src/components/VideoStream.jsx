@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './VideoStream.css'
+// import styles from './VideoStream.css'
 // import RecordPage from './s3UploadPage'
 export default class VideoStream extends Component {
   // constructor (props) {
@@ -8,7 +8,7 @@ export default class VideoStream extends Component {
   render () {
     return (
 
-      <div className={styles.main}>
+      <div>
         <video src={this.props.src} width={this.props.width} height={this.props.height} autoPlay />
 
       </div>

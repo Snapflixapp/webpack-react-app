@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import styles from './Comment.css'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { addComment } from '../actions/CommentAction'
+// import { bindActionCreators } from 'redux'
+// import { connect } from 'react-redux'
+// import { addComment } from '../actions/CommentAction'
 
 class CommentForm extends Component {
   constructor (props) {
@@ -39,17 +39,19 @@ class CommentForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.commentReducer.user,
-    comments: state.commentReducer.comments
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     user: state.commentReducer.user,
+//     comments: state.commentReducer.comments
+//   }
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({
+//     addComment: addComment
+//   }, dispatch)
+// }
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    addComment: addComment
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)
+export default CommentForm

@@ -1,71 +1,58 @@
 import React, { Component } from 'react'
-import Kairos from 'kairos-api'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { faceSignInUser } from '../actions/UserAction'
 
-const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
-class SignUpObject extends Component {
+
+class KairosSignUp extends Component {
   constructor (props) {
     super(props)
+    console.log('Props: ', props)
     this.state = {
       src: null,
       width: 500,
       height: 500
     }
+
     this.handleVideo = this.handleVideo.bind(this)
     this.handleError = this.handleError.bind(this)
     this.handlePicture = this.handlePicture.bind(this)
     this.updateCanvas = this.updateCanvas.bind(this)
   }
+
   componentDidMount () {
     if (navigator.getUserMedia) {
       navigator.getUserMedia({video: true}, this.handleVideo, this.handleError)
     }
     this.updateCanvas()
   }
+
   handleVideo (stream) {
     this.setState({
       src: window.URL.createObjectURL(stream)
     })
   }
+
   handlePicture (e) {
     e.preventDefault()
-    let context = this
-    setTimeout(function () {
-      let video = context.refs.video
-      let picture = context.refs.canvas
-      let username = context.refs.username.value
-      if (username.length) {
-        picture.getContext('2d')
-        .drawImage(video, 0, 0)
-        let imgData = picture.toDataURL('img/png')
-        imgData = imgData.replace('data:image/png;base64,', '')
-        let params = {
-          image: imgData,
-          subject_id: username,
-          gallery_name: 'snapflix'
-        }
-        client.enroll(params)
-        .then(function (data) {
-          context.props.faceSignInUser(username)
-        })
-        .catch(function (err) {
-          console.log('there was an error', err)
-        })
-      } else {
-        window.alert('username is required')
-      }
-    }, 2000)
+    let video = this.refs.video
+    let picture = this.refs.canvas
+    let username = this.refs.username.value
+
+    if (username.length) {
+      this.props.handleKairos(username, video, picture)
+    } else {
+      window.alert('username is required')
+    }
   }
+
   updateCanvas () {
     const ctx = this.refs.canvas.getContext('2d')
     ctx.fillRect(0, 0, 100, 100)
   }
+
   handleError () {
     console.log('The browser cannot access the webcam')
   }
+
   render () {
     return (
       <div>
@@ -80,16 +67,6 @@ class SignUpObject extends Component {
       </div>
     )
   }
-};
-
-const mapStateToProps = (state) => {
-  return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    faceSignInUser: faceSignInUser
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpObject)
+export default KairosSignUp
