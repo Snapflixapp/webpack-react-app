@@ -46,6 +46,7 @@ class UploadContainer extends Component {
 
   render () {
     if (this.state.uploadSuccessful) {
+      window.location.reload()
       return <Redirect to='/' />
     }
 
