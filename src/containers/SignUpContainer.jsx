@@ -54,6 +54,7 @@ class SignUpContainer extends Component {
 
   handleSubmit (e) {
     e.preventDefault()
+    this.refs.info.reset()
     if (this.state.username.length !== 0) {
       this.handlePicture()
 
@@ -165,7 +166,6 @@ class SignUpContainer extends Component {
             </div>
           </div>
         </div>
-        <button className={styles.signUpButton} type='submit' >Sign up</button>
         <div>
           <Link to='/signin'>Already have an account? Sign in</Link>
         </div>
