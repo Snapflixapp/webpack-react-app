@@ -21,6 +21,7 @@
 }
 
 .comments {
+  background-color: salmon;
   float: right;
   width: 35%;
   height: 100%;

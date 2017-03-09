@@ -12,11 +12,15 @@ const GetVideosQuery = gql`
       id
       title
       url
+      comments {
+        content
+        user {
+          username
+        }
+      }
       user {
         username
-        comments {
-          content
-        }
+        id
       }
     }
   }

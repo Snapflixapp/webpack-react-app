@@ -7,11 +7,10 @@ import VideoProfile from './VideoProfile'
 class VideoList extends Component {
   constructor (props) {
     super(props)
-
     this.state = {
       videos: [],
       showModal: false,
-      currentVideo: {}
+      currentVideo: null
     }
 
     this.handleOpenModal = this.handleOpenModal.bind(this)
@@ -36,7 +35,7 @@ class VideoList extends Component {
   handleCloseModal () {
     this.setState({
       showModal: false,
-      currentVideo: {}
+      currentVideo: null
     })
   }
 
