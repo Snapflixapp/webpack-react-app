@@ -45,7 +45,7 @@ class CommentForm extends Component {
 //     comments: state.commentReducer.comments
 //   }
 // }
-// 
+//
 // const mapDispatchToProps = (dispatch) => {
 //   return bindActionCreators({
 //     addComment: addComment
