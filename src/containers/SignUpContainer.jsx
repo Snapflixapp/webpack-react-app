@@ -19,13 +19,15 @@ class SignUpContainer extends Component {
       password: '',
       imageData: '',
       src: null,
-      redirectToReferrer: false
+      redirectToReferrer: false,
+      width: 500,
+      height: 500
     }
 
     this.handleVideo = this.handleVideo.bind(this)
     this.handleError = this.handleError.bind(this)
     this.handlePicture = this.handlePicture.bind(this)
-    this.updateCanvas = this.updateCanvas.bind(this)
+    // this.updateCanvas = this.updateCanvas.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleUsername = this.handleUsername.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
@@ -35,7 +37,7 @@ class SignUpContainer extends Component {
     if (navigator.getUserMedia) {
       navigator.getUserMedia({video: true}, this.handleVideo, this.handleError)
     }
-    this.updateCanvas()
+    // this.updateCanvas()
   }
 
   handleUsername (e) {
@@ -74,9 +76,14 @@ class SignUpContainer extends Component {
           const context = this
           registerKairos(params)
           .then(function (data) {
+            let yaye = data.body.images[0].transaction.status
+            // console.log('from kairos....=>',data.body.images[0].transaction.status)
+            if (yaye) {
+              console.log('Done',yaye)
             context.setState({
               redirectToReferrer: true
             })
+            }
           })
           .catch(function (err) {
             console.log('There was an error registering with Kairos', err)
@@ -105,16 +112,16 @@ class SignUpContainer extends Component {
     picture.getContext('2d').drawImage(video, 0, 0)
     let imgData = picture.toDataURL('img/png')
     let imageData = imgData.replace('data:image/png;base64,', '')
-    console.log('Image data: ', imageData)
+    // console.log('Image data: ', imageData)
     this.setState({
       imageData: imageData
     })
   }
 
-  updateCanvas () {
-    const ctx = this.refs.canvas.getContext('2d')
-    ctx.fillRect(0, 0, 100, 100)
-  }
+  // updateCanvas () {
+  //   const ctx = this.refs.canvas.getContext('2d')
+  //   ctx.fillRect(0, 0, 100, 100)
+  // }
 
   handleError () {
     console.log('The browser cannot access the webcam')
@@ -146,8 +153,8 @@ class SignUpContainer extends Component {
         <div className={styles.kairosForm}>
           <div>
             <div>
-              <video src={this.state.src} ref='video' style={{width: '500px', height: '500px'}} autoPlay />
-              <canvas ref='canvas' style={{width: '200px', height: '200px'}} />
+              <video src={this.state.src} ref='video' style={{width: '300px', height: '300px'}} autoPlay />
+              <canvas ref='canvas' width={this.state.width} height={this.state.height} />
             </div>
           </div>
         </div>
