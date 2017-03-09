@@ -7,7 +7,6 @@ export default (props) => {
   const logout = (e) => {
     e.preventDefault()
     props.logout()
-    props.history.push('/')
   }
 
   const signInSignOut = (

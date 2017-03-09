@@ -3,7 +3,8 @@
 'use strict'
 
 import axios from 'axios'
-// import { stringify } from 'qs'
+import Kairos from 'kairos-api'
+const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
@@ -14,34 +15,17 @@ export function captureUserMedia (callback) {
   })
 }
 
-// handle S3 upload
-// const getSignedUrl = (file) => {
-//   const token = window.localStorage.getItem('snapflixtoken')
-//
-//   const headers = {}
-//   // headers['Content-Type'] = 'application/json'
-//   headers['Authorization'] = 'Bearer ' + token
-//
-//   const params = {}
-//   params['fileName'] = file.title
-//   params['contentType'] = file.type
-//
-//   return axios({
-//     url: '/s3/sign',
-//     baseURL: __API__,
-//     headers: headers,
-//     params: params,
-//     paramsSerializer: function (params) {
-//       return stringify(params, {arrayFormat: 'brackets'})
-//     }
-//   })
-//   .then(r => r.data)
-//   .catch((e) => console.error('Error occured. Cannot get signedUrl from AWS: ', e))
-// }
+export function registerKairos (params) {
+  return client.enroll(params)
+  .then(function (data) {
+    return data
+  })
+  .catch(function (err) {
+    console.log('There was an error registering with Kairos', err)
+  })
+}
 
 export function S3Upload (video) { // parameters: { type, data, id }
-  // return getSignedUrl(video)
-    // .then((response) => {
   console.log('Video: ', video)
   const headers = {}
   headers['Content-Type'] = video.type
@@ -53,6 +37,4 @@ export function S3Upload (video) { // parameters: { type, data, id }
     data: video.data,
     headers: headers
   })
-    // })
-    // .catch(err => new Error('Error occured. Cannot upload data to AWS S3: ', err))
 }

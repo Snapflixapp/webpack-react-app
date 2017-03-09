@@ -2,7 +2,6 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
 import styles from './SignInForm.css'
-import { Link } from 'react-router-dom'
 
 // import PictureObject from './SignInWithFace'
 // <PictureObject />
@@ -36,9 +35,6 @@ const SignInForm = ({ handleSubmit, errors }) => {
         <Field name='password' type='password' component={renderField} label='Password' />
         <button type='submit' className='btn btn-primary'>Sign in</button>
       </form>
-      <div>
-        <Link to='/signup'>Don't have an account? Sign up</Link>
-      </div>
     </div>
   )
 }

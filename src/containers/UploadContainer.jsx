@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react' // eslint-disable-line
+import { Redirect } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -12,11 +13,15 @@ class UploadContainer extends Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      uploadSuccessful: false
+    }
+
     this.upload = this.upload.bind(this)
   }
 
   upload (video) {
-    this.props.mutate({ variables: { title: video.title, contentType: video.contentType } })
+    this.props.mutate({ variables: { title: video.title, contentType: video.contentType }, forceFetch: true })
       .then(({ data }) => {
         console.log('Data: ', data)
         const v = data.createVideo
@@ -29,8 +34,9 @@ class UploadContainer extends Component {
 
         S3Upload(params)
           .then(success => {
-            console.log('S3 upload successful: ', success)
-            // TODO: redirect to home page
+            this.setState({
+              uploadSuccessful: true
+            })
           })
           .catch(e => console.error('Error occured. Cannot upload data to AWS S3: ', e))
       }).catch((error) => {
@@ -39,6 +45,10 @@ class UploadContainer extends Component {
   }
 
   render () {
+    if (this.state.uploadSuccessful) {
+      return <Redirect to='/' />
+    }
+
     return (
       <div className={styles.container}>
         <h1>Upload</h1>

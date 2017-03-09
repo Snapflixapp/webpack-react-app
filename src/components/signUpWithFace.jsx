@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import Kairos from 'kairos-api'
-import gql from 'graphql-tag'
-import { graphql } from 'react-apollo'
-import { signIn } from '../actions'
 
-const client = new Kairos('7f0ac7e4', '84be0d7236ae0f1a91070d203e0f887b')
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
-class FaceAuth extends Component {
+class KairosSignUp extends Component {
   constructor (props) {
     super(props)
-
+    console.log('Props: ', props)
     this.state = {
       src: null,
       width: 500,
@@ -39,34 +33,15 @@ class FaceAuth extends Component {
 
   handlePicture (e) {
     e.preventDefault()
-    let context = this
-    setTimeout(function () {
-      let video = context.refs.video
-      let picture = context.refs.canvas
-      let username = context.refs.username.value
+    let video = this.refs.video
+    let picture = this.refs.canvas
+    let username = this.refs.username.value
 
-      if (username.length) {
-        picture.getContext('2d').drawImage(video, 0, 0)
-        let imgData = picture.toDataURL('img/png')
-        imgData = imgData.replace('data:image/png;base64,', '')
-
-        let params = {
-          image: imgData,
-          subject_id: username,
-          gallery_name: 'snapflix'
-        }
-
-        client.enroll(params)
-        .then(function (data) {
-          console.log('!!!!!!!Success: ', data)
-        })
-        .catch(function (err) {
-          console.log('there was an error', err)
-        })
-      } else {
-        window.alert('username is required')
-      }
-    }, 2000)
+    if (username.length) {
+      this.props.handleKairos(username, video, picture)
+    } else {
+      window.alert('username is required')
+    }
   }
 
   updateCanvas () {
@@ -94,26 +69,4 @@ class FaceAuth extends Component {
   }
 }
 
-const createTokenMutation = gql`
-  mutation createToken($username: String!, $password: String!) {
-    createToken(username: $username, password: $password) {
-      token,
-      errors
-    }
-  }
-`
-
-const FaceAuthWithData = graphql(createTokenMutation)(FaceAuth)
-
-const mapDispatchToProps = (dispatch) => ({
-  signInDispatcher (token) {
-    dispatch(signIn(token))
-  }
-})
-
-const FaceAuthWithDataAndState = connect(
-  null,
-  mapDispatchToProps
-)(FaceAuthWithData)
-
-export default FaceAuthWithDataAndState
+export default KairosSignUp

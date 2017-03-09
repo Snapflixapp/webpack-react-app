@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
@@ -12,7 +12,7 @@ import styles from './SignInContainer.css'
 class SignInFormContainer extends Component {
   constructor (props) {
     super(props)
-
+    console.log('SignInFormContainer props: ', props)
     this.state = {
       redirectToReferrer: false,
       errors: []
@@ -48,6 +48,7 @@ class SignInFormContainer extends Component {
         <Redirect to={from} />
       )
     }
+
     return (
       <div className={styles.container}>
         <h1>Sign in</h1>
@@ -55,6 +56,9 @@ class SignInFormContainer extends Component {
           onSubmit={this.handleSubmit}
           errors={this.state.errors}
         />
+        <div>
+          <Link to='/signup'>Don't have an account? Sign up</Link>
+        </div>
       </div>
     )
   }

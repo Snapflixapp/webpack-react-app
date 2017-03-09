@@ -11,8 +11,6 @@ import { reducer as formReducer } from 'redux-form'
 import { AUTH_SIGNIN } from './actions'
 import authReducer from './reducers'
 
-const token = window.localStorage.getItem('token')
-
 const networkInterface = createNetworkInterface({ uri: __API__ + '/graphql' })
 
 networkInterface.use([{
@@ -21,7 +19,7 @@ networkInterface.use([{
       req.options.headers = {}
     }
 
-    req.options.headers.authorization = token || null
+    req.options.headers.authorization = window.localStorage.getItem('token') || null
     next()
   }
 }])
@@ -43,7 +41,7 @@ const store = createStore(
   )
 )
 
-if (token) {
+if (window.localStorage.getItem('token')) {
   store.dispatch({ type: AUTH_SIGNIN })
 }
 
