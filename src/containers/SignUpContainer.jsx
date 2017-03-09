@@ -27,7 +27,6 @@ class SignUpContainer extends Component {
     this.handleVideo = this.handleVideo.bind(this)
     this.handleError = this.handleError.bind(this)
     this.handlePicture = this.handlePicture.bind(this)
-    // this.updateCanvas = this.updateCanvas.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleUsername = this.handleUsername.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
@@ -37,7 +36,6 @@ class SignUpContainer extends Component {
     if (navigator.getUserMedia) {
       navigator.getUserMedia({video: true}, this.handleVideo, this.handleError)
     }
-    // this.updateCanvas()
   }
 
   handleUsername (e) {
@@ -77,13 +75,11 @@ class SignUpContainer extends Component {
           const context = this
           register(params)
           .then(function (data) {
-            let yaye = data.body.images[0].transaction.status
-            // console.log('from kairos....=>',data.body.images[0].transaction.status)
-            if (yaye) {
-              console.log('Done',yaye)
-            context.setState({
-              redirectToReferrer: true
-            })
+            let status = data.body.images[0].transaction.status
+            if (status) {
+              context.setState({
+                redirectToReferrer: true
+              })
             }
           })
           .catch(function (err) {
@@ -120,16 +116,10 @@ class SignUpContainer extends Component {
     picture.getContext('2d').drawImage(video, 0, 0)
     let imgData = picture.toDataURL('img/png')
     let imageData = imgData.replace('data:image/png;base64,', '')
-    // console.log('Image data: ', imageData)
     this.setState({
       imageData: imageData
     })
   }
-
-  // updateCanvas () {
-  //   const ctx = this.refs.canvas.getContext('2d')
-  //   ctx.fillRect(0, 0, 100, 100)
-  // }
 
   handleError () {
     console.log('The browser cannot access the webcam')

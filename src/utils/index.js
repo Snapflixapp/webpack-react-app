@@ -15,7 +15,7 @@ const captureUserMedia = (callback) => {
   })
 }
 
-const register = (params) => {
+const register = function (params) {
   return client.enroll(params)
   .then(function (data) {
     return data
@@ -25,17 +25,13 @@ const register = (params) => {
   })
 }
 
-const recognize = (params) => {
+const recognize = function (params) {
   return client.recognize(params)
   .then(function (data) {
-    console.log('You were enrolled in snapflix gallery, you rock', data.body.images[0].transaction.subject_id)
-    const username = data.body.images[0].transaction.subject_id
-    if (username.length) {
-      return username
-    }
+    return data
   })
   .catch(function (err) {
-    console.log('there was an error', err)
+    return err
   })
 }
 
@@ -53,4 +49,4 @@ const S3Upload = (video) => { // parameters: { type, data, id }
   })
 }
 
-export default { captureUserMedia, register, recognize, S3Upload }
+export { captureUserMedia, register, recognize, S3Upload }
