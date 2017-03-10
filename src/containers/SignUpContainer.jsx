@@ -20,8 +20,9 @@ class SignUpContainer extends Component {
       imageData: '',
       src: null,
       redirectToReferrer: false,
-      width: 500,
-      height: 500
+      width: 300,
+      height: 300,
+      showPicture: false
     }
 
     this.handleVideo = this.handleVideo.bind(this)
@@ -111,8 +112,13 @@ class SignUpContainer extends Component {
   }
 
   handlePicture () {
+    this.setState({
+      showPicture: true
+    })
     const video = this.refs.video
     const picture = this.refs.canvas
+    picture.width = 550
+    picture.height = 550
     picture.getContext('2d').drawImage(video, 0, 0)
     let imgData = picture.toDataURL('img/png')
     let imageData = imgData.replace('data:image/png;base64,', '')
@@ -132,33 +138,38 @@ class SignUpContainer extends Component {
         <Redirect to='/' />
       )
     }
+    const canvas = this.state.showPicture ? <canvas ref='canvas' className={styles.canvas} /> : null
 
     return (
       <div className={styles.container}>
-        <div className={styles.header}><h1>Sign In</h1></div>
-        <form ref='info' onSubmit={this.handleSubmit}>
-          <label>Username: </label>
-          <br />
-          <input className={styles.signUpInput} type='text' placeholder='Username' onChange={this.handleUsername} />
-          <br />
-          <label>Password: </label>
-          <br />
-          <input className={styles.signUpInput} type='password' placeholder='Password' onChange={this.handlePassword} />
-          <br />
-          <button className={styles.signUpButton} type='submit' onClick={this.handleSubmit}>Sign up</button>
-          <br />
-        </form>
-        <div className={styles.kairosForm}>
-          <div>
-            <div>
-              <video src={this.state.src} ref='video' style={{width: '300px', height: '300px'}} autoPlay />
-              <canvas ref='canvas' width={this.state.width} height={this.state.height} />
+        <div className={styles.header}><h1>Sign Up</h1></div>
+        <div className={styles.signUpForm}>
+          <div className={styles.signUpLeft}>
+            <div className={styles.signUpContainer}>
+              <div>Sign up with your username and password below:</div><br />
+              <form ref='info' onSubmit={this.handleSubmit}>
+                <input className={styles.signUpInput} type='text' placeholder='Username' onChange={this.handleUsername} />
+                <br />
+                <input className={styles.signUpInput} type='password' placeholder='Password' onChange={this.handlePassword} />
+                <br />
+                <button className={styles.signUpButton} type='submit' onClick={this.handleSubmit}>Sign up</button>
+                <br />
+              </form>
+            </div>
+          </div>
+          <div className={styles.signUpRight}>
+            <div className={styles.kairosForm}>
+              <div className={styles.videoContainer}>
+                <video src={this.state.src} ref='video' style={{width: '300px', height: '300px'}} autoPlay />
+                {canvas}
+              </div>
             </div>
           </div>
         </div>
-        <div>
+        <div className={styles.footer}>
           <Link to='/signin'>Already have an account? Sign in</Link>
         </div>
+
       </div>
     )
   }

@@ -10,11 +10,103 @@
   display: flex;
   justify-content: flex-start;
   /*border: 1px solid black;*/
+  width: 100%;
+}
+
+
+.signUpLeft {
+  /*border: 1px solid salmon;*/
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 20px 20px rgba(0,0,0,.08);
+}
+
+.signUpRight {
+  /*border: 1px solid brown;*/
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 20px 20px rgba(0,0,0,.08);
 }
 
 .signUpForm {
   display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 40px;
+  height: 60%;
+  /*background-color: salmon;*/
+}
+
+.signUpContainer {
+  display: flex;
   justify-content: center;
-  /*border: 1px solid green;*/
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  width: 70%;
+  height: 100%;
+  /*border: 1px solid blue;*/
+
+}
+
+.signUpContainer input {
+  width: 60%;
+  height: 40px;
+}
+
+.signUpContainer button {
+  width: 60%;
+  border-width: 0px;
+  height: 30px;
+}
+
+.signUpContainer form {
+  width: 100%;
+}
+
+.videoContainer {
+  /*border: 1px solid purple;*/
+  text-align: center;
+  position: relative;
+}
+
+.kairosForm video {
+  height: 250px;
+  width: auto;
+}
+
+.canvas{
+  /*border: 1px solid black;*/
+  width: 98%;
+  height: 110%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+.kairosForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /*border: 1px solid purple;*/
+}
+
+.kairosForm button {
+  margin-top: 20px;
+  width: 50%;
+  border-width: 0px;
+  height: 30px;
+}
+
+.footer {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
