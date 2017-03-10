@@ -4,7 +4,6 @@ import styles from './Comment.css'
 class CommentForm extends Component {
   constructor (props) {
     super(props)
-    
     this.state = {
       comments: [],
       author: ''
@@ -39,17 +38,19 @@ class CommentForm extends Component {
   }
 }
 
+export default CommentForm
+
 // class CommentForm extends Component {
-// 	constructor(props) {
-// 		super(props)
-// 		this.state = {
-// 			comments: ['first comment!', 'jasmine is awesome', 'this is cool!'],
+//  constructor(props) {
+//    super(props)
+//    this.state = {
+//      comments: ['first comment!', 'jasmine is awesome', 'this is cool!'],
 //       localComments: []
 //       current:comment
-// 		}
+//    }
 //     this.handleLocalComments = this.handleLocalComments.bind(this)
-// 	}
-  
+//  }
+
 //   handleLocalComments (e) {
 //     console.log(e.target)
 //     e.preventDefault()
@@ -77,5 +78,3 @@ class CommentForm extends Component {
 //       )
 //   }
 // }
-
-export default CommentForm
