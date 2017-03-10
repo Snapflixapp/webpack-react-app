@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom'
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
-import { reducer as formReducer } from 'redux-form'
 
 import { AUTH_SIGNIN } from './actions'
 import authReducer from './reducers'
@@ -31,8 +30,7 @@ const client = new ApolloClient({
 const store = createStore(
   combineReducers({
     apollo: client.reducer(),
-    auth: authReducer,
-    form: formReducer
+    auth: authReducer
   }),
   {},
   compose(

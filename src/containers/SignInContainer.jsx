@@ -20,8 +20,9 @@ class SignInContainer extends Component {
       imageData: '',
       src: null,
       redirectToReferrer: false,
-      width: 500,
-      height: 500
+      width: 300,
+      height: 300,
+      showPicture: false
     }
 
     this.handleVideo = this.handleVideo.bind(this)
@@ -72,12 +73,16 @@ class SignInContainer extends Component {
   }
 
   handleKairos (e) {
+    this.setState({
+      showPicture: true
+    })
     const video = this.refs.video
     const picture = this.refs.canvas
+    picture.width = 550
+    picture.height = 550
     picture.getContext('2d').drawImage(video, 0, 0)
     let imgData = picture.toDataURL('img/png')
     let imageData = imgData.replace('data:image/png;base64,', '')
-
     const params = {
       image: imageData,
       gallery_name: 'snapflix'
@@ -129,36 +134,40 @@ class SignInContainer extends Component {
       )
     }
 
+    const canvas = this.state.showPicture ? <canvas ref='canvas' className={styles.canvas} /> : null
+
     return (
       <div className={styles.container}>
-        <h1>Sign In</h1>
-        <div>
-          <form ref='info' onSubmit={this.handleUsernamePassword}>
-            <label>Username: </label>
-            <br />
-            <input className={styles.signInInput} type='text' placeholder='Username' onChange={this.handleUsername} />
-            <br />
-            <label>Password: </label>
-            <br />
-            <input className={styles.signInInput} type='password' placeholder='Password' onChange={this.handlePassword} />
-            <br />
-            <button className={styles.signInButton} type='submit'>Sign up</button>
-          </form>
-        </div>
-        <div className={styles.kairosForm}>
-          <div>
-            <div>
-              <video src={this.state.src} ref='video' style={{width: '300px', height: '300px'}} autoPlay />
-              <canvas ref='canvas' width={this.state.width} height={this.state.height} />
+        <div className={styles.header}><h1>Sign In</h1></div>
+        <div className={styles.signInForm}>
+          <div className={styles.signInLeft}>
+            <div className={styles.signInContainer}>
+              <div>Sign in with your username and password below:</div><br />
+              <form ref='info' onSubmit={this.handleUsernamePassword}>
+                <input className={styles.signInInput} type='text' placeholder='Username' onChange={this.handleUsername} />
+                <br />
+                <input className={styles.signInInput} type='password' placeholder='Password' onChange={this.handlePassword} />
+                <br />
+                <button className={styles.signInButton} type='submit'>Sign in</button>
+              </form>
             </div>
           </div>
-          <br />
-          <button className={styles.signInButton} type='submit' onClick={this.handleKairos} >Sign in</button>
+          <div className={styles.signInRight}>
+            <div className={styles.kairosForm}>
+              <div className={styles.videoContainer}>
+                <div>Sign in with your face below:</div><br />
+                <video src={this.state.src} ref='video' autoPlay />
+                {canvas}
+              </div>
+              <button className={styles.signInButton} type='submit' onClick={this.handleKairos} >Sign in</button>
+              <br />
+            </div>
+          </div>
+        </div>
+        <div className={styles.footer}>
+          <Link to='/signup'>Don't have an account? Sign up</Link>
         </div>
 
-        <div>
-          <Link to='/signup'>Already have an account? Sign up</Link>
-        </div>
       </div>
     )
   }
@@ -198,93 +207,3 @@ const SignInWithDataAndState = connect(
 )(SignInWithData)
 
 export default SignInWithDataAndState
-
-// import React, { Component } from 'react'
-// import { connect } from 'react-redux'
-// import { Redirect, Link } from 'react-router-dom'
-// import gql from 'graphql-tag'
-// import { graphql } from 'react-apollo'
-//
-// import SignInForm from '../components/SignInForm'
-// import { signIn } from '../actions'
-//
-// import styles from './SignInContainer.css'
-//
-// class SignInFormContainer extends Component {
-//   constructor (props) {
-//     super(props)
-//     console.log('SignInFormContainer props: ', props)
-//     this.state = {
-//       redirectToReferrer: false,
-//       errors: []
-//     }
-//
-//     this.handleSubmit = this.handleSubmit.bind(this)
-//   }
-//
-//   handleSubmit (e) {
-//     this.props.mutate({ variables: e })
-//       .then((response) => {
-//         if (response.data.signIn.errors.length === 0) {
-//           this.props.signInDispatcher(response.data.signIn.token)
-//           this.setState({
-//             redirectToReferrer: true
-//           })
-//         } else {
-//           this.setState({
-//             errors: response.data.signIn.errors
-//           })
-//         }
-//       })
-//       .catch((err) => {
-//         console.error(err)
-//       })
-//   }
-//
-//   render () {
-//     const redirectToReferrer = this.state.redirectToReferrer
-//     const { from } = this.props.location.state || { from: { pathname: '/' } }
-//     if (redirectToReferrer) {
-//       return (
-//         <Redirect to={from} />
-//       )
-//     }
-//
-//     return (
-//       <div className={styles.container}>
-//         <h1>Sign in</h1>
-//         <SignInForm
-//           onSubmit={this.handleSubmit}
-//           errors={this.state.errors}
-//         />
-//         <div>
-//           <Link to='/signup'>Don't have an account? Sign up</Link>
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-//
-// const signInMutation = gql`
-//   mutation signIn($username: String!, $password: String!) {
-//     signIn(username: $username, password: $password) {
-//       token,
-//       errors
-//     }
-//   }
-// `
-//
-// const SignInWithData = graphql(signInMutation)(SignInFormContainer)
-//
-// const mapDispatchToProps = (dispatch) => ({
-//   signInDispatcher (token) {
-//     dispatch(signIn(token))
-//   }
-// })
-//
-// const SignInWithDataAndState = connect(
-//   null,
-//   mapDispatchToProps
-// )(SignInWithData)
-//
-// export default SignInWithDataAndState
