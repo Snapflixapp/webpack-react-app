@@ -39,6 +39,8 @@ class CommentForm extends Component {
   }
 }
 
+export default CommentForm
+
 // const mapStateToProps = (state) => {
 //   return {
 //     user: state.commentReducer.user,
@@ -54,4 +56,3 @@ class CommentForm extends Component {
 //
 // export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)
 
-export default CommentForm

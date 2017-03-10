@@ -34,7 +34,7 @@ class SignInContainer extends Component {
 
   componentDidMount () {
     if (navigator.getUserMedia) {
-      navigator.getUserMedia({video: true}, this.handleVideo, this.handleError)
+      navigator.getUserMedia({video: true, audio: true}, this.handleVideo, this.handleError)
     }
   }
 
