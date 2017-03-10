@@ -19,10 +19,8 @@ class VideoList extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    const videos = newProps.data.videos
-
     this.setState({
-      videos: videos
+      videos: newProps.data.videos
     })
   }
 
@@ -50,13 +48,14 @@ class VideoList extends Component {
           closeModal={this.handleCloseModal}
          />
         {this.state.videos.map((video) => (
-          <div key={video.id} className={styles.item}>
-            <div onClick={() => { this.handleOpenModal(video) }}>
-              <VideoEntry video={video} />
-            </div>
+          <div
+            key={video.id}
+            className={styles.item}
+            onClick={() => { this.handleOpenModal(video) }}
+          >
+            <VideoEntry video={video} />
           </div>
-        ))
-        }
+        ))}
       </div>
     )
   }
