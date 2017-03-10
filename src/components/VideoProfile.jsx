@@ -5,6 +5,9 @@ import CommentForm from './CommentForm'
 
 const customStyles = {
   content: {
+    overflow: 'hidden',
+    position: 'absolute',
+    overlfow: 'hidden',
     top: '20%',
     left: '15%',
     width: '70%',
@@ -41,7 +44,7 @@ class VideoProfile extends Component {
               </video>
             </div>
             <div className={styles.comments}>
-              <div>{decodeURI(this.props.video.title)}</div>
+              <div className={styles.title}>{decodeURI(this.props.video.title)}</div>
               <CommentForm />
             </div>
           </div>

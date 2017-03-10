@@ -5,33 +5,49 @@ class CommentForm extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      comments: [],
-      author: ''
+      commentObjs: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.scrollDiv = document.getElementById('commentDiv')
   }
+
+  scrollToBottom () {
+    this.scrollDiv.scrollTop = this.scrollDiv.scrollHeight
+  }
+
+  componentDidUpdate () {
+    this.scrollToBottom()
+  }
+
   handleSubmit (e) {
     e.preventDefault()
-    const oldComments = this.state.comments
-    this.setState({
-      comments: [...oldComments, this.refs.comment.value],
+    const msgObj = {
+      comment: this.refs.comment.value,
       author: this.refs.author.value
+    }
+    console.log(msgObj.comment)
+    console.log(msgObj.author)
+    this.setState({
+      commentObjs: [...this.state.commentObjs, msgObj]
     })
     this.refs.CommentForm.reset()
   }
 
   render () {
+    // this.scrollDiv.scrollTop = this.scrollDiv.scrollHeight
     return (
       <div>
-        {this.state.comments.map((comment, index) => (
-          <div key={index} >
-            <p><strong>{`${this.state.author}: `}</strong> {comment}</p>
-          </div>
-        ))}
+        <div id='commentDiv' className={styles.container}>
+          {this.state.commentObjs.map((comment, index) => (
+            <div className={styles.comment} key={index} >
+              <p><strong>{comment.author + ': '}</strong> {comment.comment}</p>
+            </div>
+          ))}
+        </div>
         <form ref='CommentForm'>
-          <input className={styles.inputs} type='text' ref='author' placeholder='author' />
+          <input className={styles.inputs} type='text' ref='author' placeholder='Author' />
           <input className={styles.inputs} type='text' ref='comment' placeholder='Comment' />
-          <button type='submit' onClick={this.handleSubmit} >Submit</button>
+          <button className={styles.button} type='submit' onClick={this.handleSubmit} >Submit</button>
         </form>
       </div>
     )
