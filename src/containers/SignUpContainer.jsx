@@ -135,7 +135,7 @@ class SignUpContainer extends Component {
 
     return (
       <div className={styles.container}>
-        <h1>Sign Up</h1>
+        <div className={styles.header}><h1>Sign In</h1></div>
         <form ref='info' onSubmit={this.handleSubmit}>
           <label>Username: </label>
           <br />
