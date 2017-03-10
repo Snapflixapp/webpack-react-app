@@ -6,6 +6,7 @@
 }
 
 .profile {
+  background-color: rgb(204, 245, 255);
   height: 100%;
   width: 100%;
 }
@@ -20,8 +21,26 @@
   left: 0;
 }
 
+.title {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 1px 2px #4f4f4f;
+  margin-bottom: 3px;
+  padding-bottom: 3px;
+  border: none;
+  border-bottom: 1px solid black;
+  font-weight: 600;
+  font-size: 25px;
+}
+
 .comments {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   float: right;
   width: 35%;
-  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  height: 100vh;
 }
