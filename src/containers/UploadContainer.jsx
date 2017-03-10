@@ -52,8 +52,8 @@ class UploadContainer extends Component {
 
     return (
       <div className={styles.container}>
-        <h1>Upload</h1>
-        <UploadForm onSubmit={this.upload} />
+        <div className={styles.header}><h1>Upload</h1></div>
+        <div className={styles.uploadForm}><UploadForm onSubmit={this.upload} /></div>
       </div>
     )
   }

@@ -13,8 +13,8 @@ export default class UploadForm extends Component {
     this.state = {
       src: null,
       stream: null,
-      width: 300,
-      height: 300,
+      width: 600,
+      height: 400,
       uploadSuccess: null,
       uploading: false,
       recordVideo: null,
@@ -78,33 +78,21 @@ export default class UploadForm extends Component {
       }
 
       this.props.onSubmit(video)
-      // let params = {
-      //   type: 'video/webm',
-      //   data: this.state.recordVideo.blob,
-      //   title: this.state.title || 'Untitled'
-      // }
-      //
-      // this.setState({ uploading: true })
-      //
-      // S3Upload(params)
-      // .then(success => {
-      //   console.log('S3 upload successful')
-      //   this.setState({ uploadSuccess: true, uploading: false })
-      // })
-      // .catch(e => console.log(e))
     })
   }
 
   render () {
     return (
-
-      <div>
-        <VideoStream src={this.state.src} ref='video' width={this.state.width} height={this.state.height} />
+      <div className={styles.container}>
+          Click 'START' to begin recording a 4 second video!
+        <div className={styles.canvas}>
+          <VideoStream src={this.state.src} ref='video' width={this.state.width} height={this.state.height} />
+        </div>
         {this.state.uploading ? <div>Uploading...</div> : null}
-        <br />
-        <div><div>Title:</div><input type='text' className={styles.titleInput} onChange={this.handleTitle} /></div>
-        <br />
-        <div><button onClick={this.startRecord}>Start Record</button></div>
+        <div className={styles.uploadInput}>
+          <input type='text' placeholder='enter a video title here..' className={styles.titleInput} onChange={this.handleTitle} />
+          <button className={styles.recordButton} onClick={this.startRecord}>START</button>
+        </div>
       </div>
     )
   }
