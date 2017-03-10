@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  box-shadow: 0 20px 20px rgba(0,0,0,.08);
+  /*border: 1px solid orange;*/
+  padding: 10px 10px 10px 10px;
+}
+
+.canvas {
+  margin: 10px 10px 10px 10px;
+}
+
+.uploadInput {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /*border: 1px solid black;*/
+  width: 100%;
+}
+
+
+
+.titleInput {
+  height: 30px;
+  width: 60%;
+}
+
+.recordButton {
+  border: 0px solid black;
+  height: 30px;
+}
