@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import styles from './VideoProfile.css'
+import CommentForm from './CommentForm'
 
 const customStyles = {
   content: {
@@ -41,6 +42,7 @@ class VideoProfile extends Component {
             </div>
             <div className={styles.comments}>
               <div>{decodeURI(this.props.video.title)}</div>
+              <CommentForm />
             </div>
           </div>
         </Modal>

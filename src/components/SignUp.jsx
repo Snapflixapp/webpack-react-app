@@ -71,6 +71,8 @@ class SignUp extends Component {
   }
 }
 
+export default SignUp
+
 // const mapStateToProps = (state) => {
 //   return {
 //     user: state.userReducer.user,
@@ -88,4 +90,3 @@ class SignUp extends Component {
 //
 // export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
 
-export default SignUp
